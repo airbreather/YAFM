@@ -1,0 +1,15 @@
+[
+  {
+    "modid": "YAFM",
+    "name": "Yet Another Food Mod",
+    "description": "Adds some more food to the game.  Yeah yeah, it's been done before, just not by me.  Icons by skidznet.",
+    "version": "1.0.0",
+    "mcversion": "1.6.4",
+    "url": "https://github.com/airbreather/YAFM",
+    "authors": [ "airbreather", "skidznet" ],
+    "dependencies":
+    [
+      "mod_MinecraftForge"
+    ]
+  }
+]
