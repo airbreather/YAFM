@@ -18,10 +18,12 @@ Dependencies: JDK, JRE.
 2. Download the "src" version of Minecraft Forge from http://files.minecraftforge.net (tested with 9.11.1.916).
 3. Extract "forge" somewhere, and navigate there.
 4. Run "install.cmd" or "install.sh".
-6. From this repository, copy the contents of "source" into "mcp/src/minecraft".  Sanity check: there should be a "mcp/src/minecraft/airbreather" folder now.
-7. From this repository, copy the "assets" folder into "mcp/reobf/minecraft".  Sanity check: there should be a "mcp/reobf/minecraft/assets/yafm" folder now.
-8. Back in the "forge" directory, run "recompile.bat" or "recompile.sh".
+5. Navigate to the "mcp" directory.
+6. From this repository, copy the contents of "source" into "src/minecraft".  Sanity check: there should be a "src/minecraft/airbreather/mods/yafm" folder now.
+7. From this repository, copy the contents of "modules/airbreathercore/source" into "src/minecraft".  Sanity check: there should be a "src/minecraft/airbreather/mods/airbreathercore" folder now.
+8. Run "recompile.bat" or "recompile.sh".
 9. When that completes, run "reobfuscate.bat" or "reobfuscate.sh".
-10. Navigate to "reobf/minecraft".
-11. Zip up everything in here and name the resulting file "yafm-1.0.0.jar".
-12. (mostly optional) Also add the "mcmod.info" and "forge.version" files from this repository to the root of that zip file.
+10. Navigate to the "reobf/minecraft" directory.
+11. From this repository, copy the "assets" folder to this folder.  Sanity check: starting from the "mcp" directory, there should be a "reobf/minecraft/assets/yafm" directory now.
+12. Zip up everything in here and name the resulting file "yafm-0.1.0.jar".
+13. Optionally, also add to that zip file the loose files provided in the root of this repository (excluding git-related hidden files and this README.md).
