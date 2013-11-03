@@ -13,6 +13,7 @@ final class YafmEventConfiguration implements EventConfiguration
 {
     private final ItemConfiguration itemConfiguration;
     private boolean enableRawMuttonDrops = false;
+    private boolean enableRawSquidDrops = false;
 
     public YafmEventConfiguration(ItemConfiguration itemConfiguration)
     {
@@ -22,6 +23,11 @@ final class YafmEventConfiguration implements EventConfiguration
     public void EnableRawMuttonDrops()
     {
         this.enableRawMuttonDrops = true;
+    }
+
+    public void EnableRawSquidDrops()
+    {
+        this.enableRawSquidDrops = true;
     }
 
     public Iterable<EventType> GetRecognizedEventTypes()
@@ -47,11 +53,16 @@ final class YafmEventConfiguration implements EventConfiguration
 
     private Iterable<IEventListener> GetLivingDropsEventHandlers()
     {
-        ArrayList<IEventListener> results = new ArrayList<IEventListener>(1);
+        ArrayList<IEventListener> results = new ArrayList<IEventListener>(2);
 
         if (this.enableRawMuttonDrops)
         {
             results.add(new YafmSheepDropEventHandler(this.itemConfiguration));
+        }
+
+        if (this.enableRawSquidDrops)
+        {
+            results.add(new YafmSquidDropEventHandler(this.itemConfiguration));
         }
 
         results.trimToSize();

@@ -25,5 +25,5 @@ Dependencies: JDK, JRE.
 9. When that completes, run "reobfuscate.bat" or "reobfuscate.sh".
 10. Navigate to the "reobf/minecraft" directory.
 11. From this repository, copy the "assets" folder to this folder.  Sanity check: starting from the "mcp" directory, there should be a "reobf/minecraft/assets/yafm" directory now.
-12. Zip up everything in here and name the resulting file "yafm-0.2.0.jar".
+12. Zip up everything in here and name the resulting file "yafm-0.3.0.jar".
 13. Optionally, also add to that zip file the loose files provided in the root of this repository (excluding git-related hidden files and this README.md).

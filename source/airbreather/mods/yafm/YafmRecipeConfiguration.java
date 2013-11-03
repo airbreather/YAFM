@@ -15,6 +15,7 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
     private static final float FoodSmeltingExperience = 0.35f;
     private boolean enableFriedEggRecipe = false;
     private boolean enableCookedMuttonRecipe = false;
+    private boolean enableCookedSquidRecipe = false;
 
     private ItemConfiguration itemConfiguration;
 
@@ -31,6 +32,11 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
     public void EnableCookedMuttonRecipe()
     {
         this.enableCookedMuttonRecipe = true;
+    }
+
+    public void EnableCookedSquidRecipe()
+    {
+        this.enableCookedSquidRecipe = true;
     }
 
     public Iterable<Recipe> GetRecipes()
@@ -59,6 +65,18 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
             // (0.35 experience, same as all other food smelting recipes)
             Recipe cookedMuttonRecipe = new SmeltingRecipe(cookedMuttonResult, rawMuttonItem, FoodSmeltingExperience);
             results.add(cookedMuttonRecipe);
+        }
+
+        if (this.enableCookedSquidRecipe)
+        {
+            Item rawSquidItem = this.itemConfiguration.GetItem(YafmConstants.RawSquidID);
+            Item cookedSquidItem = this.itemConfiguration.GetItem(YafmConstants.CookedSquidID);
+            ItemStack cookedSquidResult = new ItemStack(cookedSquidItem);
+
+            // Smelt Raw Squid --> Cooked Squid
+            // (0.35 experience, same as all other food smelting recipes)
+            Recipe cookedSquidRecipe = new SmeltingRecipe(cookedSquidResult, rawSquidItem, FoodSmeltingExperience);
+            results.add(cookedSquidRecipe);
         }
 
         results.trimToSize();

@@ -31,6 +31,12 @@ final class YafmConfigurationAdapter implements CustomConfiguration
         int cookedMuttonItemID = LoadCookedMuttonItemID(forgeConfiguration);
         this.itemConfiguration.SetCookedMuttonItemID(cookedMuttonItemID);
 
+        int rawSquidItemID = LoadRawSquidItemID(forgeConfiguration);
+        this.itemConfiguration.SetRawSquidItemID(rawSquidItemID);
+
+        int cookedSquidItemID = LoadCookedSquidItemID(forgeConfiguration);
+        this.itemConfiguration.SetCookedSquidItemID(cookedSquidItemID);
+
         if (ShouldEnableFriedEggRecipe(forgeConfiguration))
         {
             // Need to call this AFTER setting the item in the ItemConfiguration.
@@ -45,6 +51,16 @@ final class YafmConfigurationAdapter implements CustomConfiguration
         if (ShouldEnableRawMuttonDrops(forgeConfiguration))
         {
             this.eventConfiguration.EnableRawMuttonDrops();
+        }
+
+        if (ShouldEnableCookedSquidRecipe(forgeConfiguration))
+        {
+            this.recipeConfiguration.EnableCookedSquidRecipe();
+        }
+
+        if (ShouldEnableRawSquidDrops(forgeConfiguration))
+        {
+            this.eventConfiguration.EnableRawSquidDrops();
         }
 
         // TODO: Skip saving if we aren't in "create-initial" mode.
@@ -108,6 +124,34 @@ final class YafmConfigurationAdapter implements CustomConfiguration
         return cookedMuttonID;
     }
 
+    private static int LoadRawSquidItemID(Configuration forgeConfiguration)
+    {
+        // Parameters for the raw squid item & configuration.
+        String rawSquidIDPropertyName = "rawSquidID";
+        int rawSquidDefaultID = 9757;
+        String rawSquidIDComment = "The ID for raw squid.  " + rawSquidDefaultID + " is the default";
+
+        // Fetch the configured raw squid item ID.
+        Property rawSquidProperty = forgeConfiguration.getItem(rawSquidIDPropertyName, rawSquidDefaultID, rawSquidIDComment);
+        int rawSquidID = rawSquidProperty.getInt();
+
+        return rawSquidID;
+    }
+
+    private static int LoadCookedSquidItemID(Configuration forgeConfiguration)
+    {
+        // Parameters for the cooked squid item & configuration.
+        String cookedSquidIDPropertyName = "cookedSquidID";
+        int cookedSquidDefaultID = 9758;
+        String cookedSquidIDComment = "The ID for cooked squid.  " + cookedSquidDefaultID + " is the default";
+
+        // Fetch the configured cooked squid item ID.
+        Property cookedSquidProperty = forgeConfiguration.getItem(cookedSquidIDPropertyName, cookedSquidDefaultID, cookedSquidIDComment);
+        int cookedSquidID = cookedSquidProperty.getInt();
+
+        return cookedSquidID;
+    }
+
     private static boolean ShouldEnableFriedEggRecipe(Configuration forgeConfiguration)
     {
         String enableFriedEggRecipePropertyName = "enableFriedEggRecipe";
@@ -128,6 +172,16 @@ final class YafmConfigurationAdapter implements CustomConfiguration
         return enableRawMuttonDropsProperty.getBoolean(enableRawMuttonDropsDefault);
     }
 
+    private static boolean ShouldEnableRawSquidDrops(Configuration forgeConfiguration)
+    {
+        String enableRawSquidDropsPropertyName = "enableRawSquidDrops";
+        boolean enableRawSquidDropsDefault = true;
+        String enableRawSquidDropsComment = "Allow squid to drop raw squid?  true/false (true is the default)";
+
+        Property enableRawSquidDropsProperty = forgeConfiguration.get(Configuration.CATEGORY_GENERAL, enableRawSquidDropsPropertyName, enableRawSquidDropsDefault, enableRawSquidDropsComment);
+        return enableRawSquidDropsProperty.getBoolean(enableRawSquidDropsDefault);
+    }
+
     private static boolean ShouldEnableCookedMuttonRecipe(Configuration forgeConfiguration)
     {
         // No point in making this configurable -- if you have raw mutton, then you should be allowed to cook it.
@@ -137,6 +191,18 @@ final class YafmConfigurationAdapter implements CustomConfiguration
         ////
         ////Property enableCookedMuttonRecipeProperty = forgeConfiguration.get(Configuration.CATEGORY_GENERAL, enableCookedMuttonRecipePropertyName, enableCookedMuttonRecipeDefault, enableCookedMuttonRecipeComment);
         ////return enableCookedMuttonRecipeProperty.getBoolean(enableCookedMuttonRecipeDefault);
+        return true;
+    }
+
+    private static boolean ShouldEnableCookedSquidRecipe(Configuration forgeConfiguration)
+    {
+        // No point in making this configurable -- if you have raw squid, then you should be allowed to cook it.
+        ////String enableCookedSquidRecipePropertyName = "enableCookedSquidRecipe";
+        ////boolean enableCookedSquidRecipeDefault = true;
+        ////String enableCookedSquidRecipeComment = "Enable the Raw Squid --> Cooked Squid smelting recipe?  true/false (true is the default)";
+        ////
+        ////Property enableCookedSquidRecipeProperty = forgeConfiguration.get(Configuration.CATEGORY_GENERAL, enableCookedSquidRecipePropertyName, enableCookedSquidRecipeDefault, enableCookedSquidRecipeComment);
+        ////return enableCookedSquidRecipeProperty.getBoolean(enableCookedSquidRecipeDefault);
         return true;
     }
 }
