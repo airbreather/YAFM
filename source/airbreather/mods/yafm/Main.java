@@ -2,42 +2,41 @@ package airbreather.mods.yafm;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import net.minecraftforge.event.IEventListener;
 import airbreather.mods.airbreathercore.CustomConfiguration;
-import airbreather.mods.airbreathercore.RecipeConfiguration;
-import airbreather.mods.airbreathercore.IRecipeRegistrar;
-import airbreather.mods.airbreathercore.RecipeRegistrar;
-import airbreather.mods.yafm.YafmConstants;
+import airbreather.mods.airbreathercore.event.EventConfiguration;
+import airbreather.mods.airbreathercore.event.EventSubscriber;
+import airbreather.mods.airbreathercore.event.EventType;
+import airbreather.mods.airbreathercore.event.ForgeEventSubscriber;
+import airbreather.mods.airbreathercore.recipe.RecipeConfiguration;
+import airbreather.mods.airbreathercore.recipe.RecipeRegistrar;
+import airbreather.mods.airbreathercore.recipe.FmlRecipeRegistrar;
 
-// Lots of this is boilerplate from the Forge tutorial -- not sure how much I can just delete.
 @Mod(modid = YafmConstants.ModID, name = "Yet Another Food Mod", version = YafmConstants.CurrentVersion)
 @NetworkMod(clientSideRequired = true)
 public final class Main
 {
-    @Instance(value = YafmConstants.ModID)
-    public static Main instance;
-
-    @SidedProxy(clientSide = "airbreather.mods.yafm.CommonProxy",
-                serverSide = "airbreather.mods.yafm.CommonProxy")
-    public static CommonProxy proxy;
-
-    private final IRecipeRegistrar recipeRegistrar;
+    // The dependencies used to delegate specific mod responsibilities.
+    private final RecipeRegistrar recipeRegistrar;
+    private final EventSubscriber eventSubscriber;
     private final CustomConfiguration configuration;
 
     public Main()
     {
-        this(new RecipeRegistrar(),
+        this(new FmlRecipeRegistrar(),
+             new ForgeEventSubscriber(),
              new YafmConfigurationAdapter());
     }
 
-    public Main(final RecipeRegistrar recipeRegistrar, final CustomConfiguration configuration)
+    public Main(final RecipeRegistrar recipeRegistrar,
+                final EventSubscriber eventSubscriber,
+                final CustomConfiguration configuration)
     {
         this.recipeRegistrar = recipeRegistrar;
+        this.eventSubscriber = eventSubscriber;
         this.configuration = configuration;
     }
 
@@ -50,14 +49,19 @@ public final class Main
     @EventHandler
     public void load(FMLInitializationEvent event)
     {
-        proxy.registerRenderers();
-
+        // Register all the recipes.
         RecipeConfiguration recipeConfiguration = this.configuration.GetRecipeConfiguration();
         this.recipeRegistrar.RegisterRecipes(recipeConfiguration.GetRecipes());
-    }
 
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
+        // Now register all the event handlers, particularly those for mob drop events.
+        this.eventSubscriber.Initialize();
+        EventConfiguration eventConfiguration = this.configuration.GetEventConfiguration();
+        for (EventType eventType : eventConfiguration.GetRecognizedEventTypes())
+        {
+            for (IEventListener handler : eventConfiguration.GetEventHandlers(eventType))
+            {
+                this.eventSubscriber.SubscribeToEvent(eventType, handler);
+            }
+        }
     }
 }
