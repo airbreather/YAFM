@@ -14,6 +14,7 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
 {
     private static final float FoodSmeltingExperience = 0.35f;
     private boolean enableFriedEggRecipe = false;
+    private boolean enableCookedMuttonRecipe = false;
 
     private ItemConfiguration itemConfiguration;
 
@@ -27,9 +28,14 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
         this.enableFriedEggRecipe = true;
     }
 
+    public void EnableCookedMuttonRecipe()
+    {
+        this.enableCookedMuttonRecipe = true;
+    }
+
     public Iterable<Recipe> GetRecipes()
     {
-        ArrayList<Recipe> results = new ArrayList<Recipe>(1);
+        ArrayList<Recipe> results = new ArrayList<Recipe>(2);
 
         if (this.enableFriedEggRecipe)
         {
@@ -41,6 +47,18 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
             // (0.35 experience, same as all other food smelting recipes)
             Recipe friedEggRecipe = new SmeltingRecipe(friedEggResult, eggItem, FoodSmeltingExperience);
             results.add(friedEggRecipe);
+        }
+
+        if (this.enableCookedMuttonRecipe)
+        {
+            Item rawMuttonItem = this.itemConfiguration.GetItem(YafmConstants.RawMuttonID);
+            Item cookedMuttonItem = this.itemConfiguration.GetItem(YafmConstants.CookedMuttonID);
+            ItemStack cookedMuttonResult = new ItemStack(cookedMuttonItem);
+
+            // Smelt Raw Mutton --> Cooked Mutton
+            // (0.35 experience, same as all other food smelting recipes)
+            Recipe cookedMuttonRecipe = new SmeltingRecipe(cookedMuttonResult, rawMuttonItem, FoodSmeltingExperience);
+            results.add(cookedMuttonRecipe);
         }
 
         results.trimToSize();

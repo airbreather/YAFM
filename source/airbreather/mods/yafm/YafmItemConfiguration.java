@@ -48,7 +48,23 @@ final class YafmItemConfiguration implements ItemConfiguration
                               YafmConstants.RawMuttonEnglishName,
                               YafmConstants.RawMuttonTextureID);
     }
-    
+
+    public void SetCookedMuttonItemID(int itemID)
+    {
+        // maxStackSize: 64 (same as cooked beef)
+        // hungerRestored: 8 (same as cooked beef)
+        // saturationModifier: 0.8 (same as cooked beef)
+        // shouldWolvesEat: true (same as cooked beef)
+        this.RegisterFoodItem(YafmConstants.CookedMuttonID,
+                              itemID,
+                              64,
+                              8,
+                              0.8F,
+                              true,
+                              YafmConstants.CookedMuttonEnglishName,
+                              YafmConstants.CookedMuttonTextureID);
+    }
+
     private void RegisterFoodItem(int internalID,
                                   int itemID,
                                   int maxStackSize,

@@ -28,10 +28,18 @@ final class YafmConfigurationAdapter implements CustomConfiguration
         int rawMuttonItemID = LoadRawMuttonItemID(forgeConfiguration);
         this.itemConfiguration.SetRawMuttonItemID(rawMuttonItemID);
 
+        int cookedMuttonItemID = LoadCookedMuttonItemID(forgeConfiguration);
+        this.itemConfiguration.SetCookedMuttonItemID(cookedMuttonItemID);
+
         if (ShouldEnableFriedEggRecipe(forgeConfiguration))
         {
             // Need to call this AFTER setting the item in the ItemConfiguration.
             this.recipeConfiguration.EnableFriedEggRecipe();
+        }
+
+        if (ShouldEnableCookedMuttonRecipe(forgeConfiguration))
+        {
+            this.recipeConfiguration.EnableCookedMuttonRecipe();
         }
 
         if (ShouldEnableRawMuttonDrops(forgeConfiguration))
@@ -63,7 +71,7 @@ final class YafmConfigurationAdapter implements CustomConfiguration
         // Parameters for the fried egg item & configuration.
         String friedEggIDPropertyName = "friedEggID";
         int friedEggDefaultID = 9754;
-        String friedEggIDComment = "The ID for the fried egg.  " + friedEggDefaultID + " is the default";
+        String friedEggIDComment = "The ID for fried egg.  " + friedEggDefaultID + " is the default";
 
         // Fetch the configured fried egg item ID.
         Property friedEggProperty = forgeConfiguration.getItem(friedEggIDPropertyName, friedEggDefaultID, friedEggIDComment);
@@ -77,13 +85,27 @@ final class YafmConfigurationAdapter implements CustomConfiguration
         // Parameters for the raw mutton item & configuration.
         String rawMuttonIDPropertyName = "rawMuttonID";
         int rawMuttonDefaultID = 9755;
-        String rawMuttonIDComment = "The ID for the raw mutton.  " + rawMuttonDefaultID + " is the default";
+        String rawMuttonIDComment = "The ID for raw mutton.  " + rawMuttonDefaultID + " is the default";
 
         // Fetch the configured raw mutton item ID.
         Property rawMuttonProperty = forgeConfiguration.getItem(rawMuttonIDPropertyName, rawMuttonDefaultID, rawMuttonIDComment);
         int rawMuttonID = rawMuttonProperty.getInt();
 
         return rawMuttonID;
+    }
+
+    private static int LoadCookedMuttonItemID(Configuration forgeConfiguration)
+    {
+        // Parameters for the cooked mutton item & configuration.
+        String cookedMuttonIDPropertyName = "cookedMuttonID";
+        int cookedMuttonDefaultID = 9756;
+        String cookedMuttonIDComment = "The ID for cooked mutton.  " + cookedMuttonDefaultID + " is the default";
+
+        // Fetch the configured cooked mutton item ID.
+        Property cookedMuttonProperty = forgeConfiguration.getItem(cookedMuttonIDPropertyName, cookedMuttonDefaultID, cookedMuttonIDComment);
+        int cookedMuttonID = cookedMuttonProperty.getInt();
+
+        return cookedMuttonID;
     }
 
     private static boolean ShouldEnableFriedEggRecipe(Configuration forgeConfiguration)
@@ -104,5 +126,17 @@ final class YafmConfigurationAdapter implements CustomConfiguration
 
         Property enableRawMuttonDropsProperty = forgeConfiguration.get(Configuration.CATEGORY_GENERAL, enableRawMuttonDropsPropertyName, enableRawMuttonDropsDefault, enableRawMuttonDropsComment);
         return enableRawMuttonDropsProperty.getBoolean(enableRawMuttonDropsDefault);
+    }
+
+    private static boolean ShouldEnableCookedMuttonRecipe(Configuration forgeConfiguration)
+    {
+        // No point in making this configurable -- if you have raw mutton, then you should be allowed to cook it.
+        ////String enableCookedMuttonRecipePropertyName = "enableCookedMuttonRecipe";
+        ////boolean enableCookedMuttonRecipeDefault = true;
+        ////String enableCookedMuttonRecipeComment = "Enable the Raw Mutton --> Cooked Mutton smelting recipe?  true/false (true is the default)";
+        ////
+        ////Property enableCookedMuttonRecipeProperty = forgeConfiguration.get(Configuration.CATEGORY_GENERAL, enableCookedMuttonRecipePropertyName, enableCookedMuttonRecipeDefault, enableCookedMuttonRecipeComment);
+        ////return enableCookedMuttonRecipeProperty.getBoolean(enableCookedMuttonRecipeDefault);
+        return true;
     }
 }
