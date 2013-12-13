@@ -1,13 +1,12 @@
 package airbreather.mods.yafm;
 
 import java.util.ArrayList;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import airbreather.mods.airbreathercore.ItemConfiguration;
+import airbreather.mods.airbreathercore.item.ItemConfiguration;
+import airbreather.mods.airbreathercore.item.ItemDefinition;
 import airbreather.mods.airbreathercore.recipe.Recipe;
 import airbreather.mods.airbreathercore.recipe.RecipeConfiguration;
+import airbreather.mods.airbreathercore.recipe.RecipeResult;
 import airbreather.mods.airbreathercore.recipe.SmeltingRecipe;
-////import airbreather.mods.airbreathercore.CraftingRecipe;
 
 // Holds recipe-related configuration information, specific to YAFM.
 final class YafmRecipeConfiguration implements RecipeConfiguration
@@ -45,37 +44,37 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
 
         if (this.enableFriedEggRecipe)
         {
-            Item eggItem = Item.egg;
-            Item friedEggItem = this.itemConfiguration.GetItem(YafmConstants.FriedEggID);
-            ItemStack friedEggResult = new ItemStack(friedEggItem);
+            ItemDefinition egg = this.itemConfiguration.GetItemDefinition(YafmConstants.EggID);
+            ItemDefinition friedEgg = this.itemConfiguration.GetItemDefinition(YafmConstants.FriedEggID);
+            RecipeResult friedEggResult = new RecipeResult(friedEgg);
 
             // Smelt Egg --> Fried Egg
             // (0.35 experience, same as all other food smelting recipes)
-            Recipe friedEggRecipe = new SmeltingRecipe(friedEggResult, eggItem, FoodSmeltingExperience);
+            Recipe friedEggRecipe = new SmeltingRecipe(friedEggResult, egg, FoodSmeltingExperience);
             results.add(friedEggRecipe);
         }
 
         if (this.enableCookedMuttonRecipe)
         {
-            Item rawMuttonItem = this.itemConfiguration.GetItem(YafmConstants.RawMuttonID);
-            Item cookedMuttonItem = this.itemConfiguration.GetItem(YafmConstants.CookedMuttonID);
-            ItemStack cookedMuttonResult = new ItemStack(cookedMuttonItem);
+            ItemDefinition rawMutton = this.itemConfiguration.GetItemDefinition(YafmConstants.RawMuttonID);
+            ItemDefinition cookedMutton = this.itemConfiguration.GetItemDefinition(YafmConstants.CookedMuttonID);
+            RecipeResult cookedMuttonResult = new RecipeResult(cookedMutton);
 
             // Smelt Raw Mutton --> Cooked Mutton
             // (0.35 experience, same as all other food smelting recipes)
-            Recipe cookedMuttonRecipe = new SmeltingRecipe(cookedMuttonResult, rawMuttonItem, FoodSmeltingExperience);
+            Recipe cookedMuttonRecipe = new SmeltingRecipe(cookedMuttonResult, rawMutton, FoodSmeltingExperience);
             results.add(cookedMuttonRecipe);
         }
 
         if (this.enableCookedSquidRecipe)
         {
-            Item rawSquidItem = this.itemConfiguration.GetItem(YafmConstants.RawSquidID);
-            Item cookedSquidItem = this.itemConfiguration.GetItem(YafmConstants.CookedSquidID);
-            ItemStack cookedSquidResult = new ItemStack(cookedSquidItem);
+            ItemDefinition rawSquid = this.itemConfiguration.GetItemDefinition(YafmConstants.RawSquidID);
+            ItemDefinition cookedSquid = this.itemConfiguration.GetItemDefinition(YafmConstants.CookedSquidID);
+            RecipeResult cookedSquidResult = new RecipeResult(cookedSquid);
 
             // Smelt Raw Squid --> Cooked Squid
             // (0.35 experience, same as all other food smelting recipes)
-            Recipe cookedSquidRecipe = new SmeltingRecipe(cookedSquidResult, rawSquidItem, FoodSmeltingExperience);
+            Recipe cookedSquidRecipe = new SmeltingRecipe(cookedSquidResult, rawSquid, FoodSmeltingExperience);
             results.add(cookedSquidRecipe);
         }
 

@@ -1,10 +1,9 @@
 package airbreather.mods.yafm;
 
 import java.util.ArrayList;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.IEventListener;
-import airbreather.mods.airbreathercore.ItemConfiguration;
+import airbreather.mods.airbreathercore.item.ItemConfiguration;
+import airbreather.mods.airbreathercore.item.ItemRegistry;
 import airbreather.mods.airbreathercore.event.EventConfiguration;
 import airbreather.mods.airbreathercore.event.EventType;
 
@@ -12,12 +11,14 @@ import airbreather.mods.airbreathercore.event.EventType;
 final class YafmEventConfiguration implements EventConfiguration
 {
     private final ItemConfiguration itemConfiguration;
+    private final ItemRegistry itemRegistry;
     private boolean enableRawMuttonDrops = false;
     private boolean enableRawSquidDrops = false;
 
-    public YafmEventConfiguration(ItemConfiguration itemConfiguration)
+    public YafmEventConfiguration(ItemConfiguration itemConfiguration, ItemRegistry itemRegistry)
     {
         this.itemConfiguration = itemConfiguration;
+        this.itemRegistry = itemRegistry;
     }
 
     public void EnableRawMuttonDrops()
@@ -57,12 +58,12 @@ final class YafmEventConfiguration implements EventConfiguration
 
         if (this.enableRawMuttonDrops)
         {
-            results.add(new YafmSheepDropEventHandler(this.itemConfiguration));
+            results.add(new YafmSheepDropEventHandler(this.itemConfiguration, this.itemRegistry));
         }
 
         if (this.enableRawSquidDrops)
         {
-            results.add(new YafmSquidDropEventHandler(this.itemConfiguration));
+            results.add(new YafmSquidDropEventHandler(this.itemConfiguration, this.itemRegistry));
         }
 
         results.trimToSize();

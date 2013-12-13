@@ -4,13 +4,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import airbreather.mods.airbreathercore.ItemConfiguration;
+import airbreather.mods.airbreathercore.item.ItemConfiguration;
+import airbreather.mods.airbreathercore.item.ItemDefinition;
+import airbreather.mods.airbreathercore.item.ItemRegistry;
 
 final class YafmSheepDropEventHandler extends YafmLivingDropsEventHandlerBase
 {
     private final ItemConfiguration itemConfiguration;
+    private final ItemRegistry itemRegistry;
 
-    public YafmSheepDropEventHandler(ItemConfiguration itemConfiguration)
+    public YafmSheepDropEventHandler(ItemConfiguration itemConfiguration, ItemRegistry itemRegistry)
     {
         // Drop between [1,3] (+ Looting adjustment) upon death.
         // Sheep should behave like cows.
@@ -18,18 +21,12 @@ final class YafmSheepDropEventHandler extends YafmLivingDropsEventHandlerBase
         // So sheep drop [1,3] meat too, in addition to the [0,2] wool.
         super(1, 3);
         this.itemConfiguration = itemConfiguration;
+        this.itemRegistry = itemRegistry;
     }
 
     @Override
     protected Item GetItemToDrop(LivingDropsEvent event)
     {
-        // Whoops -- ignore this; cows drop their meat regardless.
-        // It's just for rare drops that we care about this value.
-        ////if (!event.recentlyHit)
-        ////{
-        ////    return null;
-        ////}
-        
         Entity entity = event.entity;
 
         if (!(entity instanceof EntitySheep) ||
@@ -42,12 +39,13 @@ final class YafmSheepDropEventHandler extends YafmLivingDropsEventHandlerBase
             return null;
         }
 
-        if (entity.isBurning())
-        {
-            // kinda self-explanatory -- if the mob is burning, then drop cooked
-            return this.itemConfiguration.GetItem(YafmConstants.CookedMuttonID);
-        }
+        // kinda self-explanatory -- if the mob is burning then drop cooked, else drop raw.
+        int itemTag = entity.isBurning() ?
+                      YafmConstants.CookedMuttonID :
+                      YafmConstants.RawMuttonID;
 
-        return this.itemConfiguration.GetItem(YafmConstants.RawMuttonID);
+        ItemDefinition itemDefinition = this.itemConfiguration.GetItemDefinition(itemTag);
+        Item itemToDrop = this.itemRegistry.FetchItem(itemDefinition);
+        return itemToDrop;
     }
 }

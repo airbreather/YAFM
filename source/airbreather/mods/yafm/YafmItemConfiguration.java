@@ -1,125 +1,83 @@
 package airbreather.mods.yafm;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
-import net.minecraft.creativetab.CreativeTabs;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import airbreather.mods.airbreathercore.ItemConfiguration;
+import airbreather.mods.airbreathercore.item.ItemConfiguration;
+import airbreather.mods.airbreathercore.item.ItemDefinition;
 
 // Holds item-related configuration information, specific to YAFM.
 final class YafmItemConfiguration implements ItemConfiguration
 {
-    private final HashMap<Integer, Item> itemMap = new HashMap<Integer, Item>(1);
+    private final HashMap<Integer, ItemDefinition> itemMap = new HashMap<Integer, ItemDefinition>(6);
 
-    public Item GetItem(int id)
+    public YafmItemConfiguration()
     {
-        return this.itemMap.get(id);
+        this.InitializeItemDefinitionsForNonYafmItems();
+    }
+
+    public ItemDefinition GetItemDefinition(int tag)
+    {
+        return this.itemMap.get(tag);
+    }
+
+    public Iterable<Integer> GetNewItemTags()
+    {
+        ArrayList<Integer> itemTags = new ArrayList<Integer>(5);
+        itemTags.add(YafmConstants.FriedEggID);
+        itemTags.add(YafmConstants.RawMuttonID);
+        itemTags.add(YafmConstants.CookedMuttonID);
+        itemTags.add(YafmConstants.RawSquidID);
+        itemTags.add(YafmConstants.CookedSquidID);
+        return itemTags;
     }
 
     public void SetFriedEggItemID(int itemID)
     {
-        // maxStackSize: 16
-        // hungerRestored: 5 (same as bread... a bit less than Cooked Chicken)
-        // saturationModifier: 0.6 (a "standard" saturation modifier)
-        // shouldWolvesEat: true (can't be any worse than rotten flesh, right?)
-        this.RegisterFoodItem(YafmConstants.FriedEggID,
-                              itemID,
-                              16,
-                              5,
-                              0.6F,
-                              true,
-                              YafmConstants.FriedEggEnglishName,
-                              YafmConstants.FriedEggTextureID);
+        this.SetItemID(YafmConstants.FriedEggID, itemID, YafmConstants.FriedEggItemName);
     }
 
     public void SetRawMuttonItemID(int itemID)
     {
-        // maxStackSize: 64 (same as raw beef)
-        // hungerRestored: 3 (same as raw beef)
-        // saturationModifier: 0.3 (same as raw beef)
-        // shouldWolvesEat: true (same as raw beef)
-        this.RegisterFoodItem(YafmConstants.RawMuttonID,
-                              itemID,
-                              64,
-                              3,
-                              0.3F,
-                              true,
-                              YafmConstants.RawMuttonEnglishName,
-                              YafmConstants.RawMuttonTextureID);
+        this.SetItemID(YafmConstants.RawMuttonID, itemID, YafmConstants.RawMuttonItemName);
     }
 
     public void SetCookedMuttonItemID(int itemID)
     {
-        // maxStackSize: 64 (same as cooked beef)
-        // hungerRestored: 8 (same as cooked beef)
-        // saturationModifier: 0.8 (same as cooked beef)
-        // shouldWolvesEat: true (same as cooked beef)
-        this.RegisterFoodItem(YafmConstants.CookedMuttonID,
-                              itemID,
-                              64,
-                              8,
-                              0.8F,
-                              true,
-                              YafmConstants.CookedMuttonEnglishName,
-                              YafmConstants.CookedMuttonTextureID);
+        this.SetItemID(YafmConstants.CookedMuttonID, itemID, YafmConstants.CookedMuttonItemName);
     }
 
     public void SetRawSquidItemID(int itemID)
     {
-        // maxStackSize: 64 (same as raw chicken)
-        // hungerRestored: 2 (same as raw chicken)
-        // saturationModifier: 0.3 (same as raw chicken)
-        // shouldWolvesEat: true (same as raw chicken)
-        this.RegisterFoodItem(YafmConstants.RawSquidID,
-                              itemID,
-                              64,
-                              2,
-                              0.3F,
-                              true,
-                              YafmConstants.RawSquidEnglishName,
-                              YafmConstants.RawSquidTextureID);
+        this.SetItemID(YafmConstants.RawSquidID, itemID, YafmConstants.RawSquidItemName);
     }
 
     public void SetCookedSquidItemID(int itemID)
     {
-        // maxStackSize: 64 (same as cooked chicken)
-        // hungerRestored: 6 (same as cooked chicken)
-        // saturationModifier: 0.6 (same as cooked chicken)
-        // shouldWolvesEat: true (same as cooked chicken)
-        this.RegisterFoodItem(YafmConstants.CookedSquidID,
-                              itemID,
-                              64,
-                              6,
-                              0.6F,
-                              true,
-                              YafmConstants.CookedSquidEnglishName,
-                              YafmConstants.CookedSquidTextureID);
+        this.SetItemID(YafmConstants.CookedSquidID, itemID, YafmConstants.CookedSquidItemName);
     }
 
-    private void RegisterFoodItem(int internalID,
-                                  int itemID,
-                                  int maxStackSize,
-                                  int hungerRestored,
-                                  float saturationModifier,
-                                  boolean shouldWolvesEat,
-                                  String englishName,
-                                  String textureID)
+    private void SetItemID(int tag, int itemID, String itemName)
     {
-        if (this.itemMap.containsKey(internalID))
+        if (this.itemMap.containsKey(tag))
         {
             return;
         }
 
-        Item newFoodItem = new ItemFood(itemID, hungerRestored, saturationModifier, shouldWolvesEat);
-        newFoodItem.setMaxStackSize(maxStackSize)
-                   .setUnlocalizedName(englishName)
-                   .setCreativeTab(CreativeTabs.tabFood)
-                   .setTextureName(textureID);
+        ItemDefinition itemDefinition = new ItemDefinition(tag, itemID, YafmConstants.ModID, itemName);
+        this.itemMap.put(tag, itemDefinition);
+    }
 
-        this.itemMap.put(internalID, newFoodItem);
-
-        // TODO: Globalize... that's a project for another day.
-        LanguageRegistry.addName(newFoodItem, englishName);
+    private void InitializeItemDefinitionsForNonYafmItems()
+    {
+        // This lets us plug non-YAFM items into our recipe framework.
+        // Note: having to do this is a deliberate consequence to designing the item framework this way.
+        // It means that somewhere, at some point, we have to be explicit about all the items we're using.
+        int eggItemID = Item.egg.itemID;
+        ItemDefinition eggItemDefinition = new ItemDefinition(YafmConstants.EggID,
+                                                              eggItemID,
+                                                              YafmConstants.BaseGameModID,
+                                                              YafmConstants.EggItemName);
+        this.itemMap.put(eggItemDefinition.GetTag(), eggItemDefinition);
     }
 }

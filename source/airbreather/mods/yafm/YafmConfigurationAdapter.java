@@ -3,18 +3,29 @@ package airbreather.mods.yafm;
 import java.io.File;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
-import airbreather.mods.airbreathercore.CustomConfiguration;
-import airbreather.mods.airbreathercore.ItemConfiguration;
+import airbreather.mods.airbreathercore.CustomConfigurationBase;
+import airbreather.mods.airbreathercore.item.ItemConfiguration;
+import airbreather.mods.airbreathercore.item.ItemRegistry;
 import airbreather.mods.airbreathercore.event.EventConfiguration;
 import airbreather.mods.airbreathercore.recipe.RecipeConfiguration;
 
 // Implements CustomConfiguration using the standard Forge configuration pattern, given a File.
-final class YafmConfigurationAdapter implements CustomConfiguration
+final class YafmConfigurationAdapter extends CustomConfigurationBase
 {
+    // TODO: Possible to make it so YafmEventConfiguration doesn't have to know about this?
+    private final ItemRegistry itemRegistry;
+
     private final YafmItemConfiguration itemConfiguration = new YafmItemConfiguration();
     private final YafmRecipeConfiguration recipeConfiguration = new YafmRecipeConfiguration(this.itemConfiguration);
-    private final YafmEventConfiguration eventConfiguration = new YafmEventConfiguration(this.itemConfiguration);
+    private final YafmEventConfiguration eventConfiguration;
 
+    public YafmConfigurationAdapter(final ItemRegistry itemRegistry)
+    {
+        this.itemRegistry = itemRegistry;
+        this.eventConfiguration = new YafmEventConfiguration(this.itemConfiguration, this.itemRegistry);
+    }
+
+    @Override
     public void Initialize(File configurationFile)
     {
         Configuration forgeConfiguration = new Configuration(configurationFile);
@@ -39,7 +50,6 @@ final class YafmConfigurationAdapter implements CustomConfiguration
 
         if (ShouldEnableFriedEggRecipe(forgeConfiguration))
         {
-            // Need to call this AFTER setting the item in the ItemConfiguration.
             this.recipeConfiguration.EnableFriedEggRecipe();
         }
 
@@ -67,16 +77,19 @@ final class YafmConfigurationAdapter implements CustomConfiguration
         forgeConfiguration.save();
     }
 
+    @Override
     public RecipeConfiguration GetRecipeConfiguration()
     {
         return this.recipeConfiguration;
     }
 
+    @Override
     public ItemConfiguration GetItemConfiguration()
     {
         return this.itemConfiguration;
     }
 
+    @Override
     public EventConfiguration GetEventConfiguration()
     {
         return this.eventConfiguration;
