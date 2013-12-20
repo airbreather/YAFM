@@ -12,18 +12,17 @@ Compiling
 
 I don't like Eclipse, so here's a step-by-step for how to build this by hand.
 
-Dependencies: JDK, JRE.
+Dependencies: JDK, JRE, Gradle (tested with 1.10).
 
-1. Add JDK\bin and JRE\bin to your PATH.
-2. Download the "src" version of Minecraft Forge from http://files.minecraftforge.net (tested with 9.11.1.953).
-3. Extract "forge" somewhere, and navigate there.
-4. Run "install.cmd" or "install.sh".
-5. Navigate to the "mcp" directory.
-6. From this repository, copy the contents of "source" into "src/minecraft".  Sanity check: there should be a "src/minecraft/airbreather/mods/yafm" folder now.
-7. From this repository, copy the contents of "modules/airbreathercore/source" into "src/minecraft".  Sanity check: there should be a "src/minecraft/airbreather/mods/airbreathercore" folder now.
-8. Run "recompile.bat" or "recompile.sh".
-9. When that completes, run "reobfuscate.bat" or "reobfuscate.sh".
-10. Navigate to the "reobf/minecraft" directory.
-11. From this repository, copy the "assets" folder to this folder.  Sanity check: starting from the "mcp" directory, there should be a "reobf/minecraft/assets/yafm" directory now.
-12. Zip up everything in here and name the resulting file "yafm-0.3.1.jar".
-13. Optionally, also add to that zip file the loose files provided in the root of this repository (excluding git-related hidden files and this README.md).
+Once
+----
+1. Set the GRADLE_HOME environment variable to wherever you installed Gradle (the folder that contains bin, init.d, lib, etc.).
+2. Add JDK\bin, JRE\bin, and GRADLE_HOME\bin to your PATH.
+3. Navigate to the YAFM source tree.
+4. Run "gradle setupDevWorkspace".
+
+Every time
+----------
+1. Navigate to the YAFM source tree.
+2. Run "gradle build".
+3. The result will be in the "build\libs".
