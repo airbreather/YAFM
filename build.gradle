@@ -1,0 +1,29 @@
+buildscript {
+    repositories
+    {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies
+    {
+        classpath "net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT"
+    }
+}
+
+apply plugin: "forge"
+
+sourceSets
+{
+    main
+    {
+        java { srcDirs = ["$projectDir/modules/airbreathercore/source", "$projectDir/source"] }
+        resources { srcDirs = ["$projectDir/resources"] }
+    }
+}
+
+archivesBaseName = "yafm"
+version = "0.3.1"
+minecraft.version = "1.6.4-9.11.1.964"
