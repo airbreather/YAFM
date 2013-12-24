@@ -14,6 +14,11 @@ final class YafmItemConfiguration implements ItemConfiguration
     public YafmItemConfiguration()
     {
         this.InitializeItemDefinitionsForNonYafmItems();
+        this.RegisterItem(YafmConstants.FriedEggID, YafmConstants.FriedEggItemName);
+        this.RegisterItem(YafmConstants.RawMuttonID, YafmConstants.RawMuttonItemName);
+        this.RegisterItem(YafmConstants.CookedMuttonID, YafmConstants.CookedMuttonItemName);
+        this.RegisterItem(YafmConstants.RawSquidID, YafmConstants.RawSquidItemName);
+        this.RegisterItem(YafmConstants.CookedSquidID, YafmConstants.CookedSquidItemName);
     }
 
     public ItemDefinition GetItemDefinition(int tag)
@@ -32,39 +37,14 @@ final class YafmItemConfiguration implements ItemConfiguration
         return itemTags;
     }
 
-    public void SetFriedEggItemID(int itemID)
-    {
-        this.SetItemID(YafmConstants.FriedEggID, itemID, YafmConstants.FriedEggItemName);
-    }
-
-    public void SetRawMuttonItemID(int itemID)
-    {
-        this.SetItemID(YafmConstants.RawMuttonID, itemID, YafmConstants.RawMuttonItemName);
-    }
-
-    public void SetCookedMuttonItemID(int itemID)
-    {
-        this.SetItemID(YafmConstants.CookedMuttonID, itemID, YafmConstants.CookedMuttonItemName);
-    }
-
-    public void SetRawSquidItemID(int itemID)
-    {
-        this.SetItemID(YafmConstants.RawSquidID, itemID, YafmConstants.RawSquidItemName);
-    }
-
-    public void SetCookedSquidItemID(int itemID)
-    {
-        this.SetItemID(YafmConstants.CookedSquidID, itemID, YafmConstants.CookedSquidItemName);
-    }
-
-    private void SetItemID(int tag, int itemID, String itemName)
+    private void RegisterItem(int tag, String itemName)
     {
         if (this.itemMap.containsKey(tag))
         {
             return;
         }
 
-        ItemDefinition itemDefinition = new ItemDefinition(tag, itemID, YafmConstants.ModID, itemName);
+        ItemDefinition itemDefinition = new ItemDefinition(tag, YafmConstants.ModID, itemName);
         this.itemMap.put(tag, itemDefinition);
     }
 
@@ -73,9 +53,7 @@ final class YafmItemConfiguration implements ItemConfiguration
         // This lets us plug non-YAFM items into our recipe framework.
         // Note: having to do this is a deliberate consequence to designing the item framework this way.
         // It means that somewhere, at some point, we have to be explicit about all the items we're using.
-        int eggItemID = Item.egg.itemID;
         ItemDefinition eggItemDefinition = new ItemDefinition(YafmConstants.EggID,
-                                                              eggItemID,
                                                               YafmConstants.BaseGameModID,
                                                               YafmConstants.EggItemName);
         this.itemMap.put(eggItemDefinition.GetTag(), eggItemDefinition);

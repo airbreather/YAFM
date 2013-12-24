@@ -7,7 +7,7 @@ final class YafmConstants
     public static final String ModID = "YAFM";
 
     // ID of the base game.
-    public static final String BaseGameModID = "Minecraft";
+    public static final String BaseGameModID = "minecraft";
 
     // Current version of the mod.
     public static final String CurrentVersion = "0.3.1";

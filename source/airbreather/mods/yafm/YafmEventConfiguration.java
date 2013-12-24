@@ -1,7 +1,7 @@
 package airbreather.mods.yafm;
 
 import java.util.ArrayList;
-import net.minecraftforge.event.IEventListener;
+import cpw.mods.fml.common.eventhandler.IEventListener;
 import airbreather.mods.airbreathercore.item.ItemConfiguration;
 import airbreather.mods.airbreathercore.item.ItemRegistry;
 import airbreather.mods.airbreathercore.event.EventConfiguration;

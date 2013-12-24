@@ -1,12 +1,13 @@
 package airbreather.mods.yafm;
 
 import java.util.Random;
+
 import net.minecraft.item.Item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import cpw.mods.fml.common.FMLLog;
-import net.minecraftforge.event.Event;
-import net.minecraftforge.event.IEventListener;
+import cpw.mods.fml.common.eventhandler.Event;
+import cpw.mods.fml.common.eventhandler.IEventListener;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import airbreather.mods.airbreathercore.event.EventType;
 
@@ -68,7 +69,7 @@ abstract class YafmLivingDropsEventHandlerBase implements IEventListener
         {
             // For some reason (guessing it's to avoid dropping a 0-item stack),
             // the vanilla code loops through and drops multiple 1-item stacks.
-            EntityItem droppedItem = typedEvent.entity.dropItem(itemToDrop.itemID, 1);
+            EntityItem droppedItem = typedEvent.entity.func_145779_a(itemToDrop, 1);
 
             // from browsing the code (and testing it out), it looks like the
             // result will already get added to "drops" as a result of calling

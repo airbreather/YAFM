@@ -65,9 +65,7 @@ final class YafmItemRegistrar extends ItemRegistrarBase
                                        float saturationModifier,
                                        boolean shouldWolvesEat)
     {
-        int itemID = definition.GetItemID();
-
-        Item newFoodItem = new ItemFood(itemID, hungerRestored, saturationModifier, shouldWolvesEat);
+        Item newFoodItem = new ItemFood(hungerRestored, saturationModifier, shouldWolvesEat);
         newFoodItem.setMaxStackSize(maxStackSize)
                    .setCreativeTab(CreativeTabs.tabFood);
 

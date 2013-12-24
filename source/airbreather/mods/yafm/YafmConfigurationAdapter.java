@@ -1,8 +1,8 @@
 package airbreather.mods.yafm;
 
 import java.io.File;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 import airbreather.mods.airbreathercore.CustomConfigurationBase;
 import airbreather.mods.airbreathercore.item.ItemConfiguration;
 import airbreather.mods.airbreathercore.item.ItemRegistry;
@@ -30,23 +30,6 @@ final class YafmConfigurationAdapter extends CustomConfigurationBase
     {
         Configuration forgeConfiguration = new Configuration(configurationFile);
         forgeConfiguration.load();
-
-        // Even if the recipes and drops are off, we still want to load the items,
-        // otherwise all your items would go away if you load a world that used to have them on!
-        int friedEggItemID = LoadFriedEggItemID(forgeConfiguration);
-        this.itemConfiguration.SetFriedEggItemID(friedEggItemID);
-
-        int rawMuttonItemID = LoadRawMuttonItemID(forgeConfiguration);
-        this.itemConfiguration.SetRawMuttonItemID(rawMuttonItemID);
-
-        int cookedMuttonItemID = LoadCookedMuttonItemID(forgeConfiguration);
-        this.itemConfiguration.SetCookedMuttonItemID(cookedMuttonItemID);
-
-        int rawSquidItemID = LoadRawSquidItemID(forgeConfiguration);
-        this.itemConfiguration.SetRawSquidItemID(rawSquidItemID);
-
-        int cookedSquidItemID = LoadCookedSquidItemID(forgeConfiguration);
-        this.itemConfiguration.SetCookedSquidItemID(cookedSquidItemID);
 
         if (ShouldEnableFriedEggRecipe(forgeConfiguration))
         {
@@ -93,76 +76,6 @@ final class YafmConfigurationAdapter extends CustomConfigurationBase
     public EventConfiguration GetEventConfiguration()
     {
         return this.eventConfiguration;
-    }
-
-    private static int LoadFriedEggItemID(Configuration forgeConfiguration)
-    {
-        // Parameters for the fried egg item & configuration.
-        String friedEggIDPropertyName = "friedEggID";
-        int friedEggDefaultID = 9754;
-        String friedEggIDComment = "The ID for fried egg.  " + friedEggDefaultID + " is the default";
-
-        // Fetch the configured fried egg item ID.
-        Property friedEggProperty = forgeConfiguration.getItem(friedEggIDPropertyName, friedEggDefaultID, friedEggIDComment);
-        int friedEggID = friedEggProperty.getInt();
-
-        return friedEggID;
-    }
-
-    private static int LoadRawMuttonItemID(Configuration forgeConfiguration)
-    {
-        // Parameters for the raw mutton item & configuration.
-        String rawMuttonIDPropertyName = "rawMuttonID";
-        int rawMuttonDefaultID = 9755;
-        String rawMuttonIDComment = "The ID for raw mutton.  " + rawMuttonDefaultID + " is the default";
-
-        // Fetch the configured raw mutton item ID.
-        Property rawMuttonProperty = forgeConfiguration.getItem(rawMuttonIDPropertyName, rawMuttonDefaultID, rawMuttonIDComment);
-        int rawMuttonID = rawMuttonProperty.getInt();
-
-        return rawMuttonID;
-    }
-
-    private static int LoadCookedMuttonItemID(Configuration forgeConfiguration)
-    {
-        // Parameters for the cooked mutton item & configuration.
-        String cookedMuttonIDPropertyName = "cookedMuttonID";
-        int cookedMuttonDefaultID = 9756;
-        String cookedMuttonIDComment = "The ID for cooked mutton.  " + cookedMuttonDefaultID + " is the default";
-
-        // Fetch the configured cooked mutton item ID.
-        Property cookedMuttonProperty = forgeConfiguration.getItem(cookedMuttonIDPropertyName, cookedMuttonDefaultID, cookedMuttonIDComment);
-        int cookedMuttonID = cookedMuttonProperty.getInt();
-
-        return cookedMuttonID;
-    }
-
-    private static int LoadRawSquidItemID(Configuration forgeConfiguration)
-    {
-        // Parameters for the raw squid item & configuration.
-        String rawSquidIDPropertyName = "rawSquidID";
-        int rawSquidDefaultID = 9757;
-        String rawSquidIDComment = "The ID for raw squid.  " + rawSquidDefaultID + " is the default";
-
-        // Fetch the configured raw squid item ID.
-        Property rawSquidProperty = forgeConfiguration.getItem(rawSquidIDPropertyName, rawSquidDefaultID, rawSquidIDComment);
-        int rawSquidID = rawSquidProperty.getInt();
-
-        return rawSquidID;
-    }
-
-    private static int LoadCookedSquidItemID(Configuration forgeConfiguration)
-    {
-        // Parameters for the cooked squid item & configuration.
-        String cookedSquidIDPropertyName = "cookedSquidID";
-        int cookedSquidDefaultID = 9758;
-        String cookedSquidIDComment = "The ID for cooked squid.  " + cookedSquidDefaultID + " is the default";
-
-        // Fetch the configured cooked squid item ID.
-        Property cookedSquidProperty = forgeConfiguration.getItem(cookedSquidIDPropertyName, cookedSquidDefaultID, cookedSquidIDComment);
-        int cookedSquidID = cookedSquidProperty.getInt();
-
-        return cookedSquidID;
     }
 
     private static boolean ShouldEnableFriedEggRecipe(Configuration forgeConfiguration)

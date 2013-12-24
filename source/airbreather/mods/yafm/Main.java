@@ -5,7 +5,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 ////import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.event.IEventListener;
+import cpw.mods.fml.common.eventhandler.IEventListener;
 import airbreather.mods.airbreathercore.CustomConfiguration;
 import airbreather.mods.airbreathercore.event.EventConfiguration;
 import airbreather.mods.airbreathercore.event.EventSubscriber;
