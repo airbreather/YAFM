@@ -25,5 +25,5 @@ sourceSets
 }
 
 archivesBaseName = "yafm"
-version = "0.4.0"
-minecraft.version = "1.7.2-10.12.0.971"
+version = "0.4.1"
+minecraft.version = "1.7.2-10.12.0.972"

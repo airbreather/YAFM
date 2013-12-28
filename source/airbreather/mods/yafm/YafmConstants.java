@@ -10,7 +10,7 @@ final class YafmConstants
     public static final String BaseGameModID = "minecraft";
 
     // Current version of the mod.
-    public static final String CurrentVersion = "0.4.0";
+    public static final String CurrentVersion = "0.4.1";
 
     // An ID that refers to the egg item.
     // NOT the actual item ID, just something to use internally.
