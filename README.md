@@ -5,7 +5,7 @@ Yet Another Food Mod for Minecraft.
 
 Adds some more food to the game.  Yeah yeah, it's been done before, just not by me.
 
-Tested with Minecraft Forge version 9.11.1.953.
+Tested with Minecraft Forge version 10.12.0.971.
 
 Compiling
 ---------
@@ -18,8 +18,6 @@ Once
 ----
 1. Set the GRADLE_HOME environment variable to wherever you installed Gradle (the folder that contains bin, init.d, lib, etc.).
 2. Add JDK\bin, JRE\bin, and GRADLE_HOME\bin to your PATH.
-3. Navigate to the YAFM source tree.
-4. Run "gradle setupDevWorkspace".
 
 Every time
 ----------
