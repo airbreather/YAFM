@@ -1,3 +1,4 @@
 [submodule "modules/airbreathercore"]
 	path = modules/airbreathercore
 	url = git://github.com/airbreather/airbreathercore.git
+	branch = 1.6.4
