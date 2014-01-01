@@ -1,11 +1,15 @@
 package airbreather.mods.yafm;
 
-import java.util.ArrayList;
+import com.google.common.collect.ImmutableList;
+
 import cpw.mods.fml.common.eventhandler.IEventListener;
-import airbreather.mods.airbreathercore.item.ItemConfiguration;
-import airbreather.mods.airbreathercore.item.ItemRegistry;
+
 import airbreather.mods.airbreathercore.event.EventConfiguration;
 import airbreather.mods.airbreathercore.event.EventType;
+import airbreather.mods.airbreathercore.item.ItemConfiguration;
+import airbreather.mods.airbreathercore.item.ItemRegistry;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 // Holds event-related configuration information, specific to YAFM.
 final class YafmEventConfiguration implements EventConfiguration
@@ -17,8 +21,8 @@ final class YafmEventConfiguration implements EventConfiguration
 
     public YafmEventConfiguration(ItemConfiguration itemConfiguration, ItemRegistry itemRegistry)
     {
-        this.itemConfiguration = itemConfiguration;
-        this.itemRegistry = itemRegistry;
+        this.itemConfiguration = checkNotNull(itemConfiguration, "itemConfiguration");
+        this.itemRegistry = checkNotNull(itemRegistry, "itemRegistry");
     }
 
     public void EnableRawMuttonDrops()
@@ -35,9 +39,7 @@ final class YafmEventConfiguration implements EventConfiguration
     {
         // The only kind of event we care to know about right now is:
         // "mob died, consider dropping items".
-        ArrayList<EventType> results = new ArrayList<EventType>(1);
-        results.add(EventType.LivingDrops);
-        return results;
+        return ImmutableList.of(EventType.LivingDrops);
     }
 
     public Iterable<IEventListener> GetEventHandlers(EventType eventType)
@@ -48,25 +50,24 @@ final class YafmEventConfiguration implements EventConfiguration
                 return this.GetLivingDropsEventHandlers();
 
             default:
-                return new ArrayList<IEventListener>(0);
+                return ImmutableList.of();
         }
     }
 
     private Iterable<IEventListener> GetLivingDropsEventHandlers()
     {
-        ArrayList<IEventListener> results = new ArrayList<IEventListener>(2);
+        ImmutableList.Builder<IEventListener> resultBuilder = ImmutableList.builder();
 
         if (this.enableRawMuttonDrops)
         {
-            results.add(new YafmSheepDropEventHandler(this.itemConfiguration, this.itemRegistry));
+            resultBuilder.add(new YafmSheepDropEventHandler(this.itemConfiguration, this.itemRegistry));
         }
 
         if (this.enableRawSquidDrops)
         {
-            results.add(new YafmSquidDropEventHandler(this.itemConfiguration, this.itemRegistry));
+            resultBuilder.add(new YafmSquidDropEventHandler(this.itemConfiguration, this.itemRegistry));
         }
 
-        results.trimToSize();
-        return results;
+        return resultBuilder.build();
     }
 }

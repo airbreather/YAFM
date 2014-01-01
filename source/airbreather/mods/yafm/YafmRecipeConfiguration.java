@@ -1,12 +1,15 @@
 package airbreather.mods.yafm;
 
-import java.util.ArrayList;
+import com.google.common.collect.ImmutableList;
+
 import airbreather.mods.airbreathercore.item.ItemConfiguration;
 import airbreather.mods.airbreathercore.item.ItemDefinition;
 import airbreather.mods.airbreathercore.recipe.Recipe;
 import airbreather.mods.airbreathercore.recipe.RecipeConfiguration;
 import airbreather.mods.airbreathercore.recipe.RecipeResult;
 import airbreather.mods.airbreathercore.recipe.SmeltingRecipe;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 // Holds recipe-related configuration information, specific to YAFM.
 final class YafmRecipeConfiguration implements RecipeConfiguration
@@ -20,7 +23,7 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
 
     public YafmRecipeConfiguration(ItemConfiguration itemConfiguration)
     {
-        this.itemConfiguration = itemConfiguration;
+        this.itemConfiguration = checkNotNull(itemConfiguration, "itemConfiguration");
     }
 
     public void EnableFriedEggRecipe()
@@ -40,7 +43,7 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
 
     public Iterable<Recipe> GetRecipes()
     {
-        ArrayList<Recipe> results = new ArrayList<Recipe>(2);
+        ImmutableList.Builder<Recipe> resultBuilder = ImmutableList.builder();
 
         if (this.enableFriedEggRecipe)
         {
@@ -51,7 +54,7 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
             // Smelt Egg --> Fried Egg
             // (0.35 experience, same as all other food smelting recipes)
             Recipe friedEggRecipe = new SmeltingRecipe(friedEggResult, egg, FoodSmeltingExperience);
-            results.add(friedEggRecipe);
+            resultBuilder.add(friedEggRecipe);
         }
 
         if (this.enableCookedMuttonRecipe)
@@ -63,7 +66,7 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
             // Smelt Raw Mutton --> Cooked Mutton
             // (0.35 experience, same as all other food smelting recipes)
             Recipe cookedMuttonRecipe = new SmeltingRecipe(cookedMuttonResult, rawMutton, FoodSmeltingExperience);
-            results.add(cookedMuttonRecipe);
+            resultBuilder.add(cookedMuttonRecipe);
         }
 
         if (this.enableCookedSquidRecipe)
@@ -75,10 +78,9 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
             // Smelt Raw Squid --> Cooked Squid
             // (0.35 experience, same as all other food smelting recipes)
             Recipe cookedSquidRecipe = new SmeltingRecipe(cookedSquidResult, rawSquid, FoodSmeltingExperience);
-            results.add(cookedSquidRecipe);
+            resultBuilder.add(cookedSquidRecipe);
         }
 
-        results.trimToSize();
-        return results;
+        return resultBuilder.build();
     }
 }

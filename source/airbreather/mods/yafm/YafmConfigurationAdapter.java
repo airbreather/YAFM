@@ -1,13 +1,17 @@
 package airbreather.mods.yafm;
 
 import java.io.File;
+
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+
 import airbreather.mods.airbreathercore.CustomConfigurationBase;
+import airbreather.mods.airbreathercore.event.EventConfiguration;
 import airbreather.mods.airbreathercore.item.ItemConfiguration;
 import airbreather.mods.airbreathercore.item.ItemRegistry;
-import airbreather.mods.airbreathercore.event.EventConfiguration;
 import airbreather.mods.airbreathercore.recipe.RecipeConfiguration;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 // Implements CustomConfiguration using the standard Forge configuration pattern, given a File.
 final class YafmConfigurationAdapter extends CustomConfigurationBase
@@ -21,13 +25,14 @@ final class YafmConfigurationAdapter extends CustomConfigurationBase
 
     public YafmConfigurationAdapter(final ItemRegistry itemRegistry)
     {
-        this.itemRegistry = itemRegistry;
+        this.itemRegistry = checkNotNull(itemRegistry, "itemRegistry");
         this.eventConfiguration = new YafmEventConfiguration(this.itemConfiguration, this.itemRegistry);
     }
 
     @Override
     public void Initialize(File configurationFile)
     {
+        checkNotNull(configurationFile, "configurationFile");
         Configuration forgeConfiguration = new Configuration(configurationFile);
         forgeConfiguration.load();
 

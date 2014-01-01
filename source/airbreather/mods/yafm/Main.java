@@ -2,22 +2,24 @@ package airbreather.mods.yafm;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
-////import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.IEventListener;
+
 import airbreather.mods.airbreathercore.CustomConfiguration;
 import airbreather.mods.airbreathercore.event.EventConfiguration;
 import airbreather.mods.airbreathercore.event.EventSubscriber;
 import airbreather.mods.airbreathercore.event.EventType;
 import airbreather.mods.airbreathercore.event.ForgeEventSubscriber;
+import airbreather.mods.airbreathercore.item.FmlItemRegistry;
 import airbreather.mods.airbreathercore.item.ItemConfiguration;
 import airbreather.mods.airbreathercore.item.ItemRegistrar;
 import airbreather.mods.airbreathercore.item.ItemRegistry;
-import airbreather.mods.airbreathercore.item.FmlItemRegistry;
+import airbreather.mods.airbreathercore.recipe.FmlRecipeRegistrar;
 import airbreather.mods.airbreathercore.recipe.RecipeConfiguration;
 import airbreather.mods.airbreathercore.recipe.RecipeRegistrar;
-import airbreather.mods.airbreathercore.recipe.FmlRecipeRegistrar;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 @Mod(modid = YafmConstants.ModID, name = "Yet Another Food Mod", version = YafmConstants.CurrentVersion)
 public final class Main
@@ -49,16 +51,17 @@ public final class Main
                 final EventSubscriber eventSubscriber,
                 final CustomConfiguration configuration)
     {
-        this.itemRegistry = itemRegistry;
-        this.itemRegistrar = itemRegistrar;
-        this.recipeRegistrar = recipeRegistrar;
-        this.eventSubscriber = eventSubscriber;
-        this.configuration = configuration;
+        this.itemRegistry = checkNotNull(itemRegistry, "itemRegistry");
+        this.itemRegistrar = checkNotNull(itemRegistrar, "itemRegistrar");
+        this.recipeRegistrar = checkNotNull(recipeRegistrar, "recipeRegistrar");
+        this.eventSubscriber = checkNotNull(eventSubscriber, "eventSubscriber");
+        this.configuration = checkNotNull(configuration, "configuration");
     }
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+        checkNotNull(event, "event");
         this.configuration.Initialize(event.getSuggestedConfigurationFile());
 
         ItemConfiguration itemConfiguration = this.configuration.GetItemConfiguration();

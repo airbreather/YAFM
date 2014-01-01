@@ -1,12 +1,17 @@
 package airbreather.mods.yafm;
 
+import com.google.common.base.Optional;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+
 import airbreather.mods.airbreathercore.item.ItemConfiguration;
 import airbreather.mods.airbreathercore.item.ItemDefinition;
 import airbreather.mods.airbreathercore.item.ItemRegistry;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 final class YafmSheepDropEventHandler extends YafmLivingDropsEventHandlerBase
 {
@@ -20,14 +25,15 @@ final class YafmSheepDropEventHandler extends YafmLivingDropsEventHandlerBase
         // Cows drop [0,2] leather and [1,3] meat upon death.
         // So sheep drop [1,3] meat too, in addition to the [0,2] wool.
         super(1, 3);
-        this.itemConfiguration = itemConfiguration;
-        this.itemRegistry = itemRegistry;
+        this.itemConfiguration = checkNotNull(itemConfiguration, "itemConfiguration");
+        this.itemRegistry = checkNotNull(itemRegistry, "itemRegistry");
     }
 
     @Override
-    protected Item GetItemToDrop(LivingDropsEvent event)
+    protected Optional<Item> GetItemToDrop(LivingDropsEvent event)
     {
-        Entity entity = event.entity;
+        checkNotNull(event, "event");
+        Entity entity = checkNotNull(event.entity, "event.entity");
 
         if (!(entity instanceof EntitySheep) ||
             !entity.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot") ||
@@ -36,7 +42,7 @@ final class YafmSheepDropEventHandler extends YafmLivingDropsEventHandlerBase
             // the mob isn't a sheep, or
             // mob loot is disabled, or
             // the sheep is a child.
-            return null;
+            return Optional.absent();
         }
 
         // kinda self-explanatory -- if the mob is burning then drop cooked, else drop raw.
@@ -46,6 +52,6 @@ final class YafmSheepDropEventHandler extends YafmLivingDropsEventHandlerBase
 
         ItemDefinition itemDefinition = this.itemConfiguration.GetItemDefinition(itemTag);
         Item itemToDrop = this.itemRegistry.FetchItem(itemDefinition);
-        return itemToDrop;
+        return Optional.of(itemToDrop);
     }
 }

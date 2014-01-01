@@ -1,12 +1,17 @@
 package airbreather.mods.yafm;
 
+import com.google.common.base.Optional;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+
 import airbreather.mods.airbreathercore.item.ItemConfiguration;
 import airbreather.mods.airbreathercore.item.ItemDefinition;
 import airbreather.mods.airbreathercore.item.ItemRegistry;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 final class YafmSquidDropEventHandler extends YafmLivingDropsEventHandlerBase
 {
@@ -20,14 +25,15 @@ final class YafmSquidDropEventHandler extends YafmLivingDropsEventHandlerBase
         // So how about if their meet is the same strength as chicken,
         // with the drop rate the same as other meats?
         super(1, 3);
-        this.itemConfiguration = itemConfiguration;
-        this.itemRegistry = itemRegistry;
+        this.itemConfiguration = checkNotNull(itemConfiguration, "itemConfiguration");
+        this.itemRegistry = checkNotNull(itemRegistry, "itemRegistry");
     }
 
     @Override
-    protected Item GetItemToDrop(LivingDropsEvent event)
+    protected Optional<Item> GetItemToDrop(LivingDropsEvent event)
     {
-        Entity entity = event.entity;
+        checkNotNull(event, "event");
+        Entity entity = checkNotNull(event.entity, "event.entity");
 
         if (!(entity instanceof EntitySquid) ||
             !entity.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot") ||
@@ -36,7 +42,7 @@ final class YafmSquidDropEventHandler extends YafmLivingDropsEventHandlerBase
             // the mob isn't a squid, or
             // mob loot is disabled, or
             // the squid is a child.
-            return null;
+            return Optional.absent();
         }
 
         // kinda self-explanatory -- if the mob is burning then drop cooked, else drop raw.
@@ -47,6 +53,6 @@ final class YafmSquidDropEventHandler extends YafmLivingDropsEventHandlerBase
 
         ItemDefinition itemDefinition = this.itemConfiguration.GetItemDefinition(itemTag);
         Item itemToDrop = this.itemRegistry.FetchItem(itemDefinition);
-        return itemToDrop;
+        return Optional.of(itemToDrop);
     }
 }
