@@ -3,19 +3,20 @@ package airbreather.mods.yafm;
 import java.util.Random;
 
 import net.minecraft.item.Item;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.IEventListener;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+
+import airbreather.mods.airbreathercore.asm.EntityAccessor;
 import airbreather.mods.airbreathercore.event.EventType;
 
 abstract class YafmLivingDropsEventHandlerBase implements IEventListener
 {
-    // TODO: figure out how to use Forge access transformers so that this
-    // can use the entity's own Random object instead of creating our own.
-    private final Random random = new Random();
+    // A Random generator to use as a fallback if we can't
+    // get the rand field on an Entity itself.
+    private final Random rand = new Random();
 
     // The minimum and maximum number of drops per event (mob death),
     // without taking into account any Looting enchantment modifiers.
@@ -55,13 +56,16 @@ abstract class YafmLivingDropsEventHandlerBase implements IEventListener
         // Start off by selecting a random number from [min, max] of items.
         // Random.nextInt(n) returns [0, n), so we need to do a bit of fiddling
         // to get what we need.
+        EntityAccessor entityAccessor = new EntityAccessor(typedEvent.entity);
+        Random rand = entityAccessor.GetRand().or(this.rand);
+
         int range = this.maxDropsPerEvent - this.minDropsPerEvent + 1;
-        int dropCount = this.minDropsPerEvent + this.random.nextInt(range);
+        int dropCount = this.minDropsPerEvent + rand.nextInt(range);
 
         // ... and then add between 0 and (LOOTING LEVEL) more!
         if (typedEvent.lootingLevel > 0)
         {
-            int perkBonus = this.random.nextInt(typedEvent.lootingLevel + 1);
+            int perkBonus = rand.nextInt(typedEvent.lootingLevel + 1);
             dropCount += perkBonus;
         }
 
