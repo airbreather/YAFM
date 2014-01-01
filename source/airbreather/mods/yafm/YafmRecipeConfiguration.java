@@ -1,6 +1,7 @@
 package airbreather.mods.yafm;
 
 import com.google.common.collect.ImmutableList;
+import com.google.inject.Inject;
 
 import airbreather.mods.airbreathercore.item.ItemConfiguration;
 import airbreather.mods.airbreathercore.item.ItemDefinition;
@@ -15,12 +16,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
 final class YafmRecipeConfiguration implements RecipeConfiguration
 {
     private static final float FoodSmeltingExperience = 0.35f;
+
+    private final ItemConfiguration itemConfiguration;
+
     private boolean enableFriedEggRecipe = false;
     private boolean enableCookedMuttonRecipe = false;
     private boolean enableCookedSquidRecipe = false;
 
-    private ItemConfiguration itemConfiguration;
-
+    @Inject
     public YafmRecipeConfiguration(ItemConfiguration itemConfiguration)
     {
         this.itemConfiguration = checkNotNull(itemConfiguration, "itemConfiguration");

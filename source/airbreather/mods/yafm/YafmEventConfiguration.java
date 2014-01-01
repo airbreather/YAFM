@@ -1,6 +1,7 @@
 package airbreather.mods.yafm;
 
 import com.google.common.collect.ImmutableList;
+import com.google.inject.Inject;
 
 import cpw.mods.fml.common.eventhandler.IEventListener;
 
@@ -19,6 +20,7 @@ final class YafmEventConfiguration implements EventConfiguration
     private boolean enableRawMuttonDrops = false;
     private boolean enableRawSquidDrops = false;
 
+    @Inject
     public YafmEventConfiguration(ItemConfiguration itemConfiguration, ItemRegistry itemRegistry)
     {
         this.itemConfiguration = checkNotNull(itemConfiguration, "itemConfiguration");

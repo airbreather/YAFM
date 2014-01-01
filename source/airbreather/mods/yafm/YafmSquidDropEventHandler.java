@@ -1,23 +1,26 @@
 package airbreather.mods.yafm;
 
 import com.google.common.base.Optional;
+import com.google.inject.Inject;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
+import airbreather.mods.airbreathercore.event.LivingDropsEventHandlerBase;
 import airbreather.mods.airbreathercore.item.ItemConfiguration;
 import airbreather.mods.airbreathercore.item.ItemDefinition;
 import airbreather.mods.airbreathercore.item.ItemRegistry;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-final class YafmSquidDropEventHandler extends YafmLivingDropsEventHandlerBase
+final class YafmSquidDropEventHandler extends LivingDropsEventHandlerBase
 {
     private final ItemConfiguration itemConfiguration;
     private final ItemRegistry itemRegistry;
 
+    @Inject
     public YafmSquidDropEventHandler(ItemConfiguration itemConfiguration, ItemRegistry itemRegistry)
     {
         // Drop between [1,3] (+ Looting adjustment) upon death.

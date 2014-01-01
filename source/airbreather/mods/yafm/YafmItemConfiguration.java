@@ -1,54 +1,15 @@
 package airbreather.mods.yafm;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 
-import airbreather.mods.airbreathercore.item.ItemConfiguration;
+import airbreather.mods.airbreathercore.item.ItemConfigurationBase;
 import airbreather.mods.airbreathercore.item.ItemDefinition;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
 // Holds item-related configuration information, specific to YAFM.
-final class YafmItemConfiguration implements ItemConfiguration
+final class YafmItemConfiguration extends ItemConfigurationBase
 {
-    private final ImmutableMap<Integer, ItemDefinition> itemMap;
-
-    public YafmItemConfiguration()
-    {
-        ImmutableMap.Builder<Integer, ItemDefinition> mapBuilder = ImmutableMap.builder();
-        for (ItemDefinition itemDefinition : this.GetItemDefinitionsForNonYafmItems())
-        {
-            mapBuilder.put(itemDefinition.GetTag(), itemDefinition);
-        }
-
-        for (ItemDefinition itemDefinition : this.GetItemDefinitionsForNewItems())
-        {
-            mapBuilder.put(itemDefinition.GetTag(), itemDefinition);
-        }
-
-        this.itemMap = mapBuilder.build();
-    }
-
-    public ItemDefinition GetItemDefinition(int tag)
-    {
-        checkArgument(this.itemMap.containsKey(tag),
-                      "unrecognized tag: %s... recognized tags are: %s", tag, this.itemMap.keySet());
-        return this.itemMap.get(tag);
-    }
-
-    public Iterable<Integer> GetNewItemTags()
-    {
-        return ImmutableList.of
-        (
-            YafmConstants.FriedEggID,
-            YafmConstants.RawMuttonID,
-            YafmConstants.CookedMuttonID,
-            YafmConstants.RawSquidID,
-            YafmConstants.CookedSquidID
-        );
-    }
-
-    private Iterable<ItemDefinition> GetItemDefinitionsForNewItems()
+    @Override
+    protected final Iterable<ItemDefinition> GetItemDefinitionsForNewItems()
     {
         return ImmutableList.of
         (
@@ -60,7 +21,8 @@ final class YafmItemConfiguration implements ItemConfiguration
         );
     }
 
-    private Iterable<ItemDefinition> GetItemDefinitionsForNonYafmItems()
+    @Override
+    protected final Iterable<ItemDefinition> GetItemDefinitionsForBaseItems()
     {
         // This lets us plug non-YAFM items into our recipe framework.
         // Note: having to do this is a deliberate consequence to designing the item framework this way.

@@ -2,6 +2,8 @@ package airbreather.mods.yafm;
 
 import java.io.File;
 
+import com.google.inject.Inject;
+
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
@@ -16,17 +18,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 // Implements CustomConfiguration using the standard Forge configuration pattern, given a File.
 final class YafmConfigurationAdapter extends CustomConfigurationBase
 {
-    // TODO: Possible to make it so YafmEventConfiguration doesn't have to know about this?
-    private final ItemRegistry itemRegistry;
-
     private final YafmItemConfiguration itemConfiguration = new YafmItemConfiguration();
     private final YafmRecipeConfiguration recipeConfiguration = new YafmRecipeConfiguration(this.itemConfiguration);
     private final YafmEventConfiguration eventConfiguration;
 
+    @Inject
     public YafmConfigurationAdapter(final ItemRegistry itemRegistry)
     {
-        this.itemRegistry = checkNotNull(itemRegistry, "itemRegistry");
-        this.eventConfiguration = new YafmEventConfiguration(this.itemConfiguration, this.itemRegistry);
+        checkNotNull(itemRegistry, "itemRegistry");
+        this.eventConfiguration = new YafmEventConfiguration(this.itemConfiguration, itemRegistry);
     }
 
     @Override
