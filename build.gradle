@@ -10,14 +10,25 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+        maven {
+            name = 'shadow-repo'
+            url = 'http://dl.bintray.com/content/johnrengelman/gradle-plugins/'
+        }
     }
     dependencies
     {
         classpath "net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT"
+        classpath 'org.gradle.plugins:shadow:0.7.4'
     }
 }
 
 apply plugin: "forge"
+apply plugin: "shadow"
+
+dependencies
+{
+    compile "com.google.inject:guice:3.0"
+}
 
 sourceSets
 {
@@ -26,6 +37,13 @@ sourceSets
         java { srcDirs = ["$projectDir/modules/airbreathercore/source", "$projectDir/source"] }
         resources { srcDirs = ["$projectDir/resources"] }
     }
+}
+
+shadow
+{
+    include 'com/google/inject/**'
+    include 'javax/inject/**'
+    include 'org/aopalliance/**'
 }
 
 archivesBaseName = "yafm"
