@@ -3,6 +3,7 @@ package airbreather.mods.yafm;
 import java.io.File;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -10,23 +11,26 @@ import net.minecraftforge.common.config.Property;
 import airbreather.mods.airbreathercore.CustomConfigurationBase;
 import airbreather.mods.airbreathercore.event.EventConfiguration;
 import airbreather.mods.airbreathercore.item.ItemConfiguration;
-import airbreather.mods.airbreathercore.item.ItemRegistry;
 import airbreather.mods.airbreathercore.recipe.RecipeConfiguration;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 // Implements CustomConfiguration using the standard Forge configuration pattern, given a File.
+@Singleton
 final class YafmConfigurationAdapter extends CustomConfigurationBase
 {
-    private final YafmItemConfiguration itemConfiguration = new YafmItemConfiguration();
-    private final YafmRecipeConfiguration recipeConfiguration = new YafmRecipeConfiguration(this.itemConfiguration);
+    private final YafmItemConfiguration itemConfiguration;
+    private final YafmRecipeConfiguration recipeConfiguration;
     private final YafmEventConfiguration eventConfiguration;
 
     @Inject
-    public YafmConfigurationAdapter(final ItemRegistry itemRegistry)
+    public YafmConfigurationAdapter(YafmItemConfiguration itemConfiguration,
+                                    YafmRecipeConfiguration recipeConfiguration,
+                                    YafmEventConfiguration eventConfiguration)
     {
-        checkNotNull(itemRegistry, "itemRegistry");
-        this.eventConfiguration = new YafmEventConfiguration(this.itemConfiguration, itemRegistry);
+        this.itemConfiguration = checkNotNull(itemConfiguration, "itemConfiguration");
+        this.recipeConfiguration = checkNotNull(recipeConfiguration, "recipeConfiguration");
+        this.eventConfiguration = checkNotNull(eventConfiguration, "eventConfiguration");
     }
 
     @Override

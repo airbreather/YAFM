@@ -1,3 +1,5 @@
+defaultTasks 'clean', 'build', 'shadow'
+
 buildscript {
     repositories
     {
@@ -41,6 +43,7 @@ sourceSets
 
 shadow
 {
+    artifactAttached = false
     include 'com/google/inject/**'
     include 'javax/inject/**'
     include 'org/aopalliance/**'

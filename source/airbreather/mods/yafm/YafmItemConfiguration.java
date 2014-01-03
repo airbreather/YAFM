@@ -1,11 +1,13 @@
 package airbreather.mods.yafm;
 
 import com.google.common.collect.ImmutableList;
+import com.google.inject.Singleton;
 
 import airbreather.mods.airbreathercore.item.ItemConfigurationBase;
 import airbreather.mods.airbreathercore.item.ItemDefinition;
 
 // Holds item-related configuration information, specific to YAFM.
+@Singleton
 final class YafmItemConfiguration extends ItemConfigurationBase
 {
     @Override

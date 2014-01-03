@@ -2,29 +2,29 @@ package airbreather.mods.yafm;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import cpw.mods.fml.common.eventhandler.IEventListener;
 
 import airbreather.mods.airbreathercore.event.EventConfiguration;
 import airbreather.mods.airbreathercore.event.EventType;
-import airbreather.mods.airbreathercore.item.ItemConfiguration;
-import airbreather.mods.airbreathercore.item.ItemRegistry;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 // Holds event-related configuration information, specific to YAFM.
+@Singleton
 final class YafmEventConfiguration implements EventConfiguration
 {
-    private final ItemConfiguration itemConfiguration;
-    private final ItemRegistry itemRegistry;
+    private final YafmSheepDropEventHandler sheepHandler;
+    private final YafmSquidDropEventHandler squidHandler;
     private boolean enableRawMuttonDrops = false;
     private boolean enableRawSquidDrops = false;
 
     @Inject
-    public YafmEventConfiguration(ItemConfiguration itemConfiguration, ItemRegistry itemRegistry)
+    public YafmEventConfiguration(YafmSheepDropEventHandler sheepHandler, YafmSquidDropEventHandler squidHandler)
     {
-        this.itemConfiguration = checkNotNull(itemConfiguration, "itemConfiguration");
-        this.itemRegistry = checkNotNull(itemRegistry, "itemRegistry");
+        this.sheepHandler = checkNotNull(sheepHandler, "sheepHandler");
+        this.squidHandler = checkNotNull(squidHandler, "squidHandler");
     }
 
     public void EnableRawMuttonDrops()
@@ -62,12 +62,12 @@ final class YafmEventConfiguration implements EventConfiguration
 
         if (this.enableRawMuttonDrops)
         {
-            resultBuilder.add(new YafmSheepDropEventHandler(this.itemConfiguration, this.itemRegistry));
+            resultBuilder.add(this.sheepHandler);
         }
 
         if (this.enableRawSquidDrops)
         {
-            resultBuilder.add(new YafmSquidDropEventHandler(this.itemConfiguration, this.itemRegistry));
+            resultBuilder.add(this.squidHandler);
         }
 
         return resultBuilder.build();
