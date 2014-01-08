@@ -12,6 +12,9 @@ final class YafmConstants
     // Current version of the mod.
     public static final String CurrentVersion = "0.4.1";
 
+    // Name of the mod.
+    public static final String ModName = "Yet Another Food Mod";
+
     // An ID that refers to the egg item.
     // NOT the actual item ID, just something to use internally.
     public static final int EggID;

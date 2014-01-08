@@ -6,7 +6,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 import airbreather.mods.airbreathercore.mod.ModBase;
 
-@Mod(modid = YafmConstants.ModID, name = "Yet Another Food Mod", version = YafmConstants.CurrentVersion)
+@Mod(modid = YafmConstants.ModID, name = YafmConstants.ModID, version = YafmConstants.CurrentVersion)
 public final class YafmMod extends ModBase
 {
     public YafmMod()
