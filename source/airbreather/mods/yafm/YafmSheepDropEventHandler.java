@@ -1,7 +1,6 @@
 package airbreather.mods.yafm;
 
 import com.google.common.base.Optional;
-import com.google.inject.Inject;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntitySheep;
@@ -20,7 +19,6 @@ final class YafmSheepDropEventHandler extends LivingDropsEventHandlerBase
     private final ItemConfiguration itemConfiguration;
     private final ItemRegistry itemRegistry;
 
-    @Inject
     public YafmSheepDropEventHandler(ItemConfiguration itemConfiguration, ItemRegistry itemRegistry)
     {
         // Drop between [1,3] (+ Looting adjustment) upon death.

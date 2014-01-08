@@ -2,9 +2,6 @@ package airbreather.mods.yafm;
 
 import java.io.File;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
@@ -16,14 +13,12 @@ import airbreather.mods.airbreathercore.recipe.RecipeConfiguration;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 // Implements CustomConfiguration using the standard Forge configuration pattern, given a File.
-@Singleton
 final class YafmConfigurationAdapter extends CustomConfigurationBase
 {
     private final YafmItemConfiguration itemConfiguration;
     private final YafmRecipeConfiguration recipeConfiguration;
     private final YafmEventConfiguration eventConfiguration;
 
-    @Inject
     public YafmConfigurationAdapter(YafmItemConfiguration itemConfiguration,
                                     YafmRecipeConfiguration recipeConfiguration,
                                     YafmEventConfiguration eventConfiguration)

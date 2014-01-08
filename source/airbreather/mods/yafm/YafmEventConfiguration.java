@@ -1,8 +1,6 @@
 package airbreather.mods.yafm;
 
 import com.google.common.collect.ImmutableList;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 import cpw.mods.fml.common.eventhandler.IEventListener;
 
@@ -12,7 +10,6 @@ import airbreather.mods.airbreathercore.event.EventType;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 // Holds event-related configuration information, specific to YAFM.
-@Singleton
 final class YafmEventConfiguration implements EventConfiguration
 {
     private final YafmSheepDropEventHandler sheepHandler;
@@ -20,7 +17,6 @@ final class YafmEventConfiguration implements EventConfiguration
     private boolean enableRawMuttonDrops = false;
     private boolean enableRawSquidDrops = false;
 
-    @Inject
     public YafmEventConfiguration(YafmSheepDropEventHandler sheepHandler, YafmSquidDropEventHandler squidHandler)
     {
         this.sheepHandler = checkNotNull(sheepHandler, "sheepHandler");

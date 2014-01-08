@@ -1,8 +1,6 @@
 package airbreather.mods.yafm;
 
 import com.google.common.collect.ImmutableList;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 import airbreather.mods.airbreathercore.item.ItemConfiguration;
 import airbreather.mods.airbreathercore.item.ItemDefinition;
@@ -14,7 +12,6 @@ import airbreather.mods.airbreathercore.recipe.SmeltingRecipe;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 // Holds recipe-related configuration information, specific to YAFM.
-@Singleton
 final class YafmRecipeConfiguration implements RecipeConfiguration
 {
     private static final float FoodSmeltingExperience = 0.35f;
@@ -25,7 +22,6 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
     private boolean enableCookedMuttonRecipe = false;
     private boolean enableCookedSquidRecipe = false;
 
-    @Inject
     public YafmRecipeConfiguration(ItemConfiguration itemConfiguration)
     {
         this.itemConfiguration = checkNotNull(itemConfiguration, "itemConfiguration");
