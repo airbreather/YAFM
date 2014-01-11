@@ -1,3 +1,3 @@
-[submodule "modules/airbreathercore"]
-	path = modules/airbreathercore
+[submodule "src/main/java/airbreather/mods/airbreathercore"]
+	path = src/main/java/airbreather/mods/airbreathercore
 	url = git://github.com/airbreather/airbreathercore.git

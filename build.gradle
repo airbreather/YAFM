@@ -1,14 +1,19 @@
 defaultTasks 'build'
 
-buildscript {
+buildscript
+{
     repositories
     {
         mavenCentral()
-        maven {
+
+        maven
+        {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
-        maven {
+
+        maven
+        {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
@@ -21,15 +26,40 @@ buildscript {
 
 apply plugin: "forge"
 
-sourceSets
+// define the properties file
+ext.configFile = file "build.properties"
+
+configFile.withReader
 {
-    main
-    {
-        java { srcDirs = ["$projectDir/modules/airbreathercore/source", "$projectDir/source"] }
-        resources { srcDirs = ["$projectDir/resources"] }
-    }
+    // read config.  it shall from now on be referenced as simply config or as project.config
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
 }
 
 archivesBaseName = "yafm"
-version = "0.4.1"
-minecraft.version = "1.7.2-10.12.0.997"
+version = config.mod_version
+
+minecraft.version = config.minecraft_version + "-" + config.forge_version // grab latest forge
+minecraft.assetDir = "run/assets"
+
+processResources
+{
+    // replace stuff in the files we want.
+    from(sourceSets.main.resources.srcDirs)
+    {
+        include '**/*.info'
+        include '**/*.properties'
+
+        // replaces
+        expand(['mod_version': project.config.mod_version,
+                'minecraft_version': project.config.minecraft_version])
+    }
+
+    // copy everything else (what we didn't do before)
+    from(sourceSets.main.resources.srcDirs)
+    {
+        exclude '**/*.info'
+        exclude '**/*.properties'
+    }
+}
