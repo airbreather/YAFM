@@ -11,7 +11,7 @@ import airbreather.mods.airbreathercore.mod.ModLifecycleManager;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-@Mod(modid = YafmConstants.ModID, name = YafmConstants.ModID, version = YafmConstants.CurrentVersion)
+@Mod(modid = YafmConstants.ModID, name = YafmConstants.ModName, version = YafmConstants.CurrentVersion)
 public final class YafmMod
 {
     private final IModLifecycleManager modLifecycleManager;
