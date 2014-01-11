@@ -2,30 +2,20 @@ package airbreather.mods.yafm;
 
 import com.google.common.collect.ImmutableList;
 
-import airbreather.mods.airbreathercore.item.ItemConfiguration;
 import airbreather.mods.airbreathercore.item.ItemDefinition;
 import airbreather.mods.airbreathercore.recipe.Recipe;
 import airbreather.mods.airbreathercore.recipe.RecipeConfiguration;
 import airbreather.mods.airbreathercore.recipe.RecipeResult;
 import airbreather.mods.airbreathercore.recipe.SmeltingRecipe;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 // Holds recipe-related configuration information, specific to YAFM.
 final class YafmRecipeConfiguration implements RecipeConfiguration
 {
     private static final float FoodSmeltingExperience = 0.35f;
 
-    private final ItemConfiguration itemConfiguration;
-
     private boolean enableFriedEggRecipe = false;
     private boolean enableCookedMuttonRecipe = false;
     private boolean enableCookedSquidRecipe = false;
-
-    public YafmRecipeConfiguration(ItemConfiguration itemConfiguration)
-    {
-        this.itemConfiguration = checkNotNull(itemConfiguration, "itemConfiguration");
-    }
 
     public void EnableFriedEggRecipe()
     {
@@ -48,8 +38,8 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
 
         if (this.enableFriedEggRecipe)
         {
-            ItemDefinition egg = this.itemConfiguration.GetItemDefinition(YafmConstants.EggID);
-            ItemDefinition friedEgg = this.itemConfiguration.GetItemDefinition(YafmConstants.FriedEggID);
+            ItemDefinition egg = YafmConstants.EggItemDefinition;
+            ItemDefinition friedEgg = YafmConstants.FriedEggItemDefinition;
             RecipeResult friedEggResult = new RecipeResult(friedEgg);
 
             // Smelt Egg --> Fried Egg
@@ -60,8 +50,8 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
 
         if (this.enableCookedMuttonRecipe)
         {
-            ItemDefinition rawMutton = this.itemConfiguration.GetItemDefinition(YafmConstants.RawMuttonID);
-            ItemDefinition cookedMutton = this.itemConfiguration.GetItemDefinition(YafmConstants.CookedMuttonID);
+            ItemDefinition rawMutton = YafmConstants.RawMuttonItemDefinition;
+            ItemDefinition cookedMutton = YafmConstants.CookedMuttonItemDefinition;
             RecipeResult cookedMuttonResult = new RecipeResult(cookedMutton);
 
             // Smelt Raw Mutton --> Cooked Mutton
@@ -72,8 +62,8 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
 
         if (this.enableCookedSquidRecipe)
         {
-            ItemDefinition rawSquid = this.itemConfiguration.GetItemDefinition(YafmConstants.RawSquidID);
-            ItemDefinition cookedSquid = this.itemConfiguration.GetItemDefinition(YafmConstants.CookedSquidID);
+            ItemDefinition rawSquid = YafmConstants.RawSquidItemDefinition;
+            ItemDefinition cookedSquid = YafmConstants.CookedSquidItemDefinition;
             RecipeResult cookedSquidResult = new RecipeResult(cookedSquid);
 
             // Smelt Raw Squid --> Cooked Squid

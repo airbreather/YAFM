@@ -14,11 +14,11 @@ final class YafmModule extends ModuleBase
         super();
 
         YafmItemConfiguration itemConfiguration = new YafmItemConfiguration();
-        YafmRecipeConfiguration recipeConfiguration = new YafmRecipeConfiguration(itemConfiguration);
+        YafmRecipeConfiguration recipeConfiguration = new YafmRecipeConfiguration();
 
         ItemRegistry itemRegistry = this.GetItemRegistry();
-        YafmSheepDropEventHandler sheepDropHandler = new YafmSheepDropEventHandler(itemConfiguration, itemRegistry);
-        YafmSquidDropEventHandler squidDropHandler = new YafmSquidDropEventHandler(itemConfiguration, itemRegistry);
+        YafmSheepDropEventHandler sheepDropHandler = new YafmSheepDropEventHandler(itemRegistry);
+        YafmSquidDropEventHandler squidDropHandler = new YafmSquidDropEventHandler(itemRegistry);
         YafmEventConfiguration eventConfiguration = new YafmEventConfiguration(sheepDropHandler, squidDropHandler);
 
         this.customConfiguration = new YafmConfigurationAdapter(itemConfiguration,

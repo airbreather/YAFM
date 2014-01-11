@@ -1,5 +1,7 @@
 package airbreather.mods.yafm;
 
+import airbreather.mods.airbreathercore.item.ItemDefinition;
+
 // Some constants used throughout the mod.
 final class YafmConstants
 {
@@ -15,57 +17,21 @@ final class YafmConstants
     // Name of the mod.
     public static final String ModName = "Yet Another Food Mod";
 
-    // An ID that refers to the egg item.
-    // NOT the actual item ID, just something to use internally.
-    public static final int EggID;
+    // Refers to the egg item in the base game.
+    public static final ItemDefinition EggItemDefinition = new ItemDefinition(BaseGameModID, "egg");
 
-    // An ID that refers to the fried egg item.
-    // NOT the actual configurable item ID, just something to use internally.
-    public static final int FriedEggID;
+    // Refers to the fried egg item added by this mod.
+    public static final ItemDefinition FriedEggItemDefinition = new ItemDefinition(ModID, "eggFried");
 
-    // An ID that refers to the raw mutton item.
-    // NOT the actual configurable item ID, just something to use internally.
-    public static final int RawMuttonID;
+    // Refers to the raw mutton item added by this mod.
+    public static final ItemDefinition RawMuttonItemDefinition = new ItemDefinition(ModID, "muttonRaw");
 
-    // An ID that refers to the cooked mutton item.
-    // NOT the actual configurable item ID, just something to use internally.
-    public static final int CookedMuttonID;
+    // Refers to the cooked mutton item added by this mod.
+    public static final ItemDefinition CookedMuttonItemDefinition = new ItemDefinition(ModID, "muttonCooked");
 
-    // An ID that refers to the raw squid item.
-    // NOT the actual configurable item ID, just something to use internally.
-    public static final int RawSquidID;
+    // Refers to the raw squid item added by this mod.
+    public static final ItemDefinition RawSquidItemDefinition = new ItemDefinition(ModID, "squidRaw");
 
-    // An ID that refers to the cooked squid item.
-    // NOT the actual configurable item ID, just something to use internally.
-    public static final int CookedSquidID;
-
-    // The name for the egg item.
-    public static final String EggItemName = "egg";
-
-    // The name for the fried egg item.
-    public static final String FriedEggItemName = "eggFried";
-
-    // The name for the raw mutton item.
-    public static final String RawMuttonItemName = "muttonRaw";
-
-    // The name for the cooked mutton item.
-    public static final String CookedMuttonItemName = "muttonCooked";
-
-    // The name for the raw squid item.
-    public static final String RawSquidItemName = "squidRaw";
-
-    // The name for the cooked squid item.
-    public static final String CookedSquidItemName = "squidCooked";
-
-    static
-    {
-        // Set up all the internal IDs.
-        int x = 0;
-        EggID = x++;
-        FriedEggID = x++;
-        RawMuttonID = x++;
-        CookedMuttonID = x++;
-        RawSquidID = x++;
-        CookedSquidID = x++;
-    }
+    // Refers to the cooked squid item added by this mod.
+    public static final ItemDefinition CookedSquidItemDefinition = new ItemDefinition(ModID, "squidCooked");
 }

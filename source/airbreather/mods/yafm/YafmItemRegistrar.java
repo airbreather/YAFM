@@ -16,8 +16,7 @@ final class YafmItemRegistrar extends ItemRegistrarBase
     public Item CreateItemCore(ItemDefinition definition)
     {
         checkNotNull(definition, "definition");
-        int tag = definition.GetTag();
-        if (tag == YafmConstants.FriedEggID)
+        if (definition.equals(YafmConstants.FriedEggItemDefinition))
         {
             // maxStackSize: 16
             // hungerRestored: 5 (same as bread... a bit less than Cooked Chicken)
@@ -25,7 +24,7 @@ final class YafmItemRegistrar extends ItemRegistrarBase
             // shouldWolvesEat: true (can't be any worse than rotten flesh, right?)
             return CreateFoodItem(16, 5, 0.6f, true);
         }
-        else if (tag == YafmConstants.RawMuttonID)
+        if (definition.equals(YafmConstants.RawMuttonItemDefinition))
         {
             // maxStackSize: 64 (same as raw beef)
             // hungerRestored: 3 (same as raw beef)
@@ -33,7 +32,7 @@ final class YafmItemRegistrar extends ItemRegistrarBase
             // shouldWolvesEat: true (same as raw beef)
             return CreateFoodItem(64, 3, 0.3f, true);
         }
-        else if (tag == YafmConstants.CookedMuttonID)
+        if (definition.equals(YafmConstants.CookedMuttonItemDefinition))
         {
             // maxStackSize: 64 (same as cooked beef)
             // hungerRestored: 8 (same as cooked beef)
@@ -41,7 +40,7 @@ final class YafmItemRegistrar extends ItemRegistrarBase
             // shouldWolvesEat: true (same as cooked beef)
             return CreateFoodItem(64, 8, 0.8f, true);
         }
-        else if (tag == YafmConstants.RawSquidID)
+        if (definition.equals(YafmConstants.RawSquidItemDefinition))
         {
             // maxStackSize: 64 (same as raw chicken)
             // hungerRestored: 2 (same as raw chicken)
@@ -49,7 +48,7 @@ final class YafmItemRegistrar extends ItemRegistrarBase
             // shouldWolvesEat: true (same as raw chicken)
             return CreateFoodItem(64, 2, 0.3f, true);
         }
-        else if (tag == YafmConstants.CookedSquidID)
+        if (definition.equals(YafmConstants.CookedSquidItemDefinition))
         {
             // maxStackSize: 64 (same as cooked chicken)
             // hungerRestored: 6 (same as cooked chicken)
