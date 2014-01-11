@@ -52,8 +52,9 @@ processResources
         include '**/*.properties'
 
         // replaces
-        expand(['mod_version': project.config.mod_version,
-                'minecraft_version': project.config.minecraft_version])
+        expand(['mod_version': config.mod_version,
+                'minecraft_version': config.minecraft_version,
+                'forge_version': config.forge_version])
     }
 
     // copy everything else (what we didn't do before)
