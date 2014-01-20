@@ -16,6 +16,14 @@ final class YafmConstants
     // NOT the actual item ID, just something to use internally.
     public static final int EggID;
 
+    // An ID that refers to the carrot item.
+    // NOT the actual item ID, just something to use internally.
+    public static final int CarrotID;
+
+    // An ID that refers to the bowl item.
+    // NOT the actual item ID, just something to use internally.
+    public static final int BowlID;
+
     // An ID that refers to the fried egg item.
     // NOT the actual configurable item ID, just something to use internally.
     public static final int FriedEggID;
@@ -36,8 +44,18 @@ final class YafmConstants
     // NOT the actual configurable item ID, just something to use internally.
     public static final int CookedSquidID;
 
+    // An ID that refers to the carrot soup item.
+    // NOT the actual configurable item ID, just something to use internally.
+    public static final int CarrotSoupID;
+
     // The name for the egg item.
     public static final String EggItemName = "egg";
+
+    // The name for the carrot item.
+    public static final String CarrotItemName = "carrot";
+
+    // The name for the bowl item.
+    public static final String BowlItemName = "bowl";
 
     // The name for the fried egg item.
     public static final String FriedEggItemName = "eggFried";
@@ -54,15 +72,21 @@ final class YafmConstants
     // The name for the cooked squid item.
     public static final String CookedSquidItemName = "squidCooked";
 
+    // The name for the carrot soup item.
+    public static final String CarrotSoupItemName = "carrotSoup";
+
     static
     {
         // Set up all the internal IDs.
         int x = 0;
         EggID = x++;
+        CarrotID = x++;
+        BowlID = x++;
         FriedEggID = x++;
         RawMuttonID = x++;
         CookedMuttonID = x++;
         RawSquidID = x++;
         CookedSquidID = x++;
+        CarrotSoupID = x++;
     }
 }

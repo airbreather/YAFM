@@ -9,7 +9,7 @@ import airbreather.mods.airbreathercore.item.ItemDefinition;
 // Holds item-related configuration information, specific to YAFM.
 final class YafmItemConfiguration implements ItemConfiguration
 {
-    private final HashMap<Integer, ItemDefinition> itemMap = new HashMap<Integer, ItemDefinition>(6);
+    private final HashMap<Integer, ItemDefinition> itemMap = new HashMap<Integer, ItemDefinition>(9);
 
     public YafmItemConfiguration()
     {
@@ -23,12 +23,13 @@ final class YafmItemConfiguration implements ItemConfiguration
 
     public Iterable<Integer> GetNewItemTags()
     {
-        ArrayList<Integer> itemTags = new ArrayList<Integer>(5);
+        ArrayList<Integer> itemTags = new ArrayList<Integer>(6);
         itemTags.add(YafmConstants.FriedEggID);
         itemTags.add(YafmConstants.RawMuttonID);
         itemTags.add(YafmConstants.CookedMuttonID);
         itemTags.add(YafmConstants.RawSquidID);
         itemTags.add(YafmConstants.CookedSquidID);
+        itemTags.add(YafmConstants.CarrotSoupID);
         return itemTags;
     }
 
@@ -57,6 +58,11 @@ final class YafmItemConfiguration implements ItemConfiguration
         this.SetItemID(YafmConstants.CookedSquidID, itemID, YafmConstants.CookedSquidItemName);
     }
 
+    public void SetCarrotSoupItemID(int itemID)
+    {
+        this.SetItemID(YafmConstants.CarrotSoupID, itemID, YafmConstants.CarrotSoupItemName);
+    }
+
     private void SetItemID(int tag, int itemID, String itemName)
     {
         if (this.itemMap.containsKey(tag))
@@ -79,5 +85,19 @@ final class YafmItemConfiguration implements ItemConfiguration
                                                               YafmConstants.BaseGameModID,
                                                               YafmConstants.EggItemName);
         this.itemMap.put(eggItemDefinition.GetTag(), eggItemDefinition);
+
+        int carrotItemID = Item.carrot.itemID;
+        ItemDefinition carrotItemDefinition = new ItemDefinition(YafmConstants.CarrotID,
+                                                                 carrotItemID,
+                                                                 YafmConstants.BaseGameModID,
+                                                                 YafmConstants.CarrotItemName);
+        this.itemMap.put(carrotItemDefinition.GetTag(), carrotItemDefinition);
+
+        int bowlItemID = Item.bowlEmpty.itemID;
+        ItemDefinition bowlItemDefinition = new ItemDefinition(YafmConstants.BowlID,
+                                                               bowlItemID,
+                                                               YafmConstants.BaseGameModID,
+                                                               YafmConstants.BowlItemName);
+        this.itemMap.put(bowlItemDefinition.GetTag(), bowlItemDefinition);
     }
 }

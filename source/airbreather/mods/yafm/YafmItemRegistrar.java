@@ -55,6 +55,15 @@ final class YafmItemRegistrar extends ItemRegistrarBase
             // shouldWolvesEat: true (same as cooked chicken)
             return CreateFoodItem(definition, 64, 6, 0.6f, true);
         }
+        else if (tag == YafmConstants.CarrotSoupID)
+        {
+            // maxServings: 3
+            // hungerRestored: 2 (same as one carrots)
+            // saturationModifier: 0.8 (same as cooked beef)
+            // shouldWolvesEat: false (same as mushroom stew)
+            // container: bowl (same as mushroom stew)
+            return CreateFoodItemInContainer(definition, 3, 4, 0.6f, false, Item.bowlEmpty);
+        }
 
         return super.CreateItemCore(definition);
     }
@@ -70,6 +79,21 @@ final class YafmItemRegistrar extends ItemRegistrarBase
         Item newFoodItem = new ItemFood(itemID, hungerRestored, saturationModifier, shouldWolvesEat);
         newFoodItem.setMaxStackSize(maxStackSize)
                    .setCreativeTab(CreativeTabs.tabFood);
+
+        return newFoodItem;
+    }
+
+    private static Item CreateFoodItemInContainer(ItemDefinition definition,
+                                                  int maxServings,
+                                                  int hungerRestored,
+                                                  float saturationModifier,
+                                                  boolean shouldWolvesEat,
+                                                  Item emptyContainer)
+    {
+        int itemID = definition.GetItemID();
+
+        Item newFoodItem = new ItemFoodInContainer(itemID, hungerRestored, saturationModifier, shouldWolvesEat, maxServings, emptyContainer);
+        newFoodItem.setCreativeTab(CreativeTabs.tabFood);
 
         return newFoodItem;
     }

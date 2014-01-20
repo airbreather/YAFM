@@ -6,6 +6,7 @@ import airbreather.mods.airbreathercore.item.ItemDefinition;
 import airbreather.mods.airbreathercore.recipe.Recipe;
 import airbreather.mods.airbreathercore.recipe.RecipeConfiguration;
 import airbreather.mods.airbreathercore.recipe.RecipeResult;
+import airbreather.mods.airbreathercore.recipe.ShapelessCraftingRecipe;
 import airbreather.mods.airbreathercore.recipe.SmeltingRecipe;
 
 // Holds recipe-related configuration information, specific to YAFM.
@@ -15,6 +16,7 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
     private boolean enableFriedEggRecipe = false;
     private boolean enableCookedMuttonRecipe = false;
     private boolean enableCookedSquidRecipe = false;
+    private boolean enableCarrotSoupRecipe = false;
 
     private ItemConfiguration itemConfiguration;
 
@@ -26,6 +28,11 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
     public void EnableFriedEggRecipe()
     {
         this.enableFriedEggRecipe = true;
+    }
+
+    public void EnableCarrotSoupRecipe()
+    {
+        this.enableCarrotSoupRecipe = true;
     }
 
     public void EnableCookedMuttonRecipe()
@@ -40,7 +47,7 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
 
     public Iterable<Recipe> GetRecipes()
     {
-        ArrayList<Recipe> results = new ArrayList<Recipe>(2);
+        ArrayList<Recipe> results = new ArrayList<Recipe>(4);
 
         if (this.enableFriedEggRecipe)
         {
@@ -52,6 +59,23 @@ final class YafmRecipeConfiguration implements RecipeConfiguration
             // (0.35 experience, same as all other food smelting recipes)
             Recipe friedEggRecipe = new SmeltingRecipe(friedEggResult, egg, FoodSmeltingExperience);
             results.add(friedEggRecipe);
+        }
+
+        if (this.enableCarrotSoupRecipe)
+        {
+            ItemDefinition carrot = this.itemConfiguration.GetItemDefinition(YafmConstants.CarrotID);
+            ItemDefinition bowl = this.itemConfiguration.GetItemDefinition(YafmConstants.BowlID);
+            ItemDefinition carrotSoup = this.itemConfiguration.GetItemDefinition(YafmConstants.CarrotSoupID);
+            RecipeResult carrotSoupResult = new RecipeResult(carrotSoup);
+
+            // Craft (shapeless) 2x Carrot + 1x Bowl --> Carrot Soup
+            ArrayList<ItemDefinition> inputs = new ArrayList<ItemDefinition>(3);
+            inputs.add(carrot);
+            inputs.add(carrot);
+            inputs.add(bowl);
+
+            Recipe carrotSoupRecipe = new ShapelessCraftingRecipe(carrotSoupResult, inputs);
+            results.add(carrotSoupRecipe);
         }
 
         if (this.enableCookedMuttonRecipe)
