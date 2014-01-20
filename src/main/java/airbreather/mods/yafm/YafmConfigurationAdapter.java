@@ -40,9 +40,9 @@ final class YafmConfigurationAdapter extends CustomConfigurationBase
             this.recipeConfiguration.EnableFriedEggRecipe();
         }
 
-        if (ShouldEnableCookedMuttonRecipe(forgeConfiguration))
+        if (ShouldEnableCarrotSoupRecipe(forgeConfiguration))
         {
-            this.recipeConfiguration.EnableCookedMuttonRecipe();
+            this.recipeConfiguration.EnableCarrotSoupRecipe();
         }
 
         if (ShouldEnableRawMuttonDrops(forgeConfiguration))
@@ -50,15 +50,15 @@ final class YafmConfigurationAdapter extends CustomConfigurationBase
             this.eventConfiguration.EnableRawMuttonDrops();
         }
 
-        if (ShouldEnableCookedSquidRecipe(forgeConfiguration))
-        {
-            this.recipeConfiguration.EnableCookedSquidRecipe();
-        }
-
         if (ShouldEnableRawSquidDrops(forgeConfiguration))
         {
             this.eventConfiguration.EnableRawSquidDrops();
         }
+
+        // Unconditionally enable the cooking recipes for the new meats.
+        // If you have the raw stuff, you should be allowed to cook it.
+        this.recipeConfiguration.EnableCookedMuttonRecipe();
+        this.recipeConfiguration.EnableCookedSquidRecipe();
 
         // TODO: Skip saving if we aren't in "create-initial" mode.
         forgeConfiguration.save();
@@ -92,6 +92,16 @@ final class YafmConfigurationAdapter extends CustomConfigurationBase
         return enableFriedEggRecipeProperty.getBoolean(enableFriedEggRecipeDefault);
     }
 
+    private static boolean ShouldEnableCarrotSoupRecipe(Configuration forgeConfiguration)
+    {
+        String enableCarrotSoupRecipePropertyName = "enableCarrotSoupRecipe";
+        boolean enableCarrotSoupRecipeDefault = true;
+        String enableCarrotSoupRecipeComment = "Enable the Carrot Soup crafting recipe?  true/false (true is the default)";
+
+        Property enableCarrotSoupRecipeProperty = forgeConfiguration.get(Configuration.CATEGORY_GENERAL, enableCarrotSoupRecipePropertyName, enableCarrotSoupRecipeDefault, enableCarrotSoupRecipeComment);
+        return enableCarrotSoupRecipeProperty.getBoolean(enableCarrotSoupRecipeDefault);
+    }
+
     private static boolean ShouldEnableRawMuttonDrops(Configuration forgeConfiguration)
     {
         String enableRawMuttonDropsPropertyName = "enableRawMuttonDrops";
@@ -110,29 +120,5 @@ final class YafmConfigurationAdapter extends CustomConfigurationBase
 
         Property enableRawSquidDropsProperty = forgeConfiguration.get(Configuration.CATEGORY_GENERAL, enableRawSquidDropsPropertyName, enableRawSquidDropsDefault, enableRawSquidDropsComment);
         return enableRawSquidDropsProperty.getBoolean(enableRawSquidDropsDefault);
-    }
-
-    private static boolean ShouldEnableCookedMuttonRecipe(Configuration forgeConfiguration)
-    {
-        // No point in making this configurable -- if you have raw mutton, then you should be allowed to cook it.
-        ////String enableCookedMuttonRecipePropertyName = "enableCookedMuttonRecipe";
-        ////boolean enableCookedMuttonRecipeDefault = true;
-        ////String enableCookedMuttonRecipeComment = "Enable the Raw Mutton --> Cooked Mutton smelting recipe?  true/false (true is the default)";
-        ////
-        ////Property enableCookedMuttonRecipeProperty = forgeConfiguration.get(Configuration.CATEGORY_GENERAL, enableCookedMuttonRecipePropertyName, enableCookedMuttonRecipeDefault, enableCookedMuttonRecipeComment);
-        ////return enableCookedMuttonRecipeProperty.getBoolean(enableCookedMuttonRecipeDefault);
-        return true;
-    }
-
-    private static boolean ShouldEnableCookedSquidRecipe(Configuration forgeConfiguration)
-    {
-        // No point in making this configurable -- if you have raw squid, then you should be allowed to cook it.
-        ////String enableCookedSquidRecipePropertyName = "enableCookedSquidRecipe";
-        ////boolean enableCookedSquidRecipeDefault = true;
-        ////String enableCookedSquidRecipeComment = "Enable the Raw Squid --> Cooked Squid smelting recipe?  true/false (true is the default)";
-        ////
-        ////Property enableCookedSquidRecipeProperty = forgeConfiguration.get(Configuration.CATEGORY_GENERAL, enableCookedSquidRecipePropertyName, enableCookedSquidRecipeDefault, enableCookedSquidRecipeComment);
-        ////return enableCookedSquidRecipeProperty.getBoolean(enableCookedSquidRecipeDefault);
-        return true;
     }
 }

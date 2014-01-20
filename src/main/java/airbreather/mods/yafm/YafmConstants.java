@@ -17,6 +17,12 @@ final class YafmConstants
     // Refers to the egg item in the base game.
     public static final ItemDefinition EggItemDefinition = new ItemDefinition(BaseGameModID, "egg");
 
+    // Refers to the carrot item in the base game.
+    public static final ItemDefinition CarrotItemDefinition = new ItemDefinition(BaseGameModID, "carrot");
+
+    // Refers to the bowl item in the base game.
+    public static final ItemDefinition BowlItemDefinition = new ItemDefinition(BaseGameModID, "bowl");
+
     // Refers to the fried egg item added by this mod.
     public static final ItemDefinition FriedEggItemDefinition = new ItemDefinition(ModID, "eggFried");
 
@@ -31,4 +37,7 @@ final class YafmConstants
 
     // Refers to the cooked squid item added by this mod.
     public static final ItemDefinition CookedSquidItemDefinition = new ItemDefinition(ModID, "squidCooked");
+
+    // Refers to the carrot soup item added by this mod.
+    public static final ItemDefinition CarrotSoupItemDefinition = new ItemDefinition(ModID, "carrotSoup");
 }

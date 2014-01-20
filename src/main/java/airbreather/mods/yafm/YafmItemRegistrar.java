@@ -1,6 +1,7 @@
 package airbreather.mods.yafm;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 
@@ -56,6 +57,15 @@ final class YafmItemRegistrar extends ItemRegistrarBase
             // shouldWolvesEat: true (same as cooked chicken)
             return CreateFoodItem(64, 6, 0.6f, true);
         }
+        if (definition.equals(YafmConstants.CarrotSoupItemDefinition))
+        {
+            // maxServings: 3
+            // hungerRestored: 2 (same as one carrots)
+            // saturationModifier: 0.8 (same as cooked beef)
+            // shouldWolvesEat: false (same as mushroom stew)
+            // container: bowl (same as mushroom stew)
+            return CreateFoodItemInContainer(3, 4, 0.6f, false, Items.bowl);
+        }
 
         return super.CreateItemCore(definition);
     }
@@ -68,6 +78,18 @@ final class YafmItemRegistrar extends ItemRegistrarBase
         Item newFoodItem = new ItemFood(hungerRestored, saturationModifier, shouldWolvesEat);
         newFoodItem.setMaxStackSize(maxStackSize)
                    .setCreativeTab(CreativeTabs.tabFood);
+
+        return newFoodItem;
+    }
+
+    private static Item CreateFoodItemInContainer(int maxServings,
+                                                  int hungerRestored,
+                                                  float saturationModifier,
+                                                  boolean shouldWolvesEat,
+                                                  Item emptyContainer)
+    {
+        Item newFoodItem = new ItemFoodInContainer(hungerRestored, saturationModifier, shouldWolvesEat, maxServings, emptyContainer);
+        newFoodItem.setCreativeTab(CreativeTabs.tabFood);
 
         return newFoodItem;
     }
