@@ -3,7 +3,7 @@ Yet Another Food Mod for Minecraft.
 
 Adds some more food to the game.  Yeah yeah, it's been done before, just not by me.
 
-Tested with Minecraft Forge version 10.12.0.997.
+Tested with Minecraft Forge version 10.12.0.1007.
 
 ## Compiling
 I don't like Eclipse, so here's a step-by-step for how to build this by hand.
