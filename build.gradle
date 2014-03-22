@@ -1,4 +1,4 @@
-defaultTasks 'build'
+defaultTasks 'setupDevWorkspace', 'build'
 
 buildscript
 {
