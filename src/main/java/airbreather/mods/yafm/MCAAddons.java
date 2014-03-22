@@ -63,6 +63,10 @@ final class MCAAddons
                                          choreRegistryClass,
                                          YafmConstants.RawSquidItemDefinition,
                                          YafmConstants.CookedSquidItemDefinition);
+            this.RegisterMCACookableFood(cookableFoodClass,
+                                         choreRegistryClass,
+                                         YafmConstants.EggItemDefinition,
+                                         YafmConstants.FriedEggItemDefinition);
 
             LogMCACookingEntries(choreRegistryClass, cookableFoodClass, "after ");
         }
