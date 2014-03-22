@@ -14,10 +14,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Mod(modid = YafmConstants.ModID, name = YafmConstants.ModName)
 public final class YafmMod
 {
+    private final MCAAddons mcaAddons;
     private final IModLifecycleManager modLifecycleManager;
 
-    public YafmMod(final IModLifecycleManager modLifecycleManager)
+    public YafmMod(final IModule module, final IModLifecycleManager modLifecycleManager)
     {
+        this.mcaAddons = new MCAAddons(checkNotNull(module, "module"));
         this.modLifecycleManager = checkNotNull(modLifecycleManager, "modLifecycleManager");
     }
 
@@ -28,7 +30,7 @@ public final class YafmMod
     {
         IModule module = new YafmModule();
         IModLifecycleManager modLifecycleManager = new ModLifecycleManager(module);
-        return new YafmMod(modLifecycleManager);
+        return new YafmMod(module, modLifecycleManager);
     }
 
     @Mod.EventHandler
@@ -47,5 +49,6 @@ public final class YafmMod
     private void PostInit(FMLPostInitializationEvent event)
     {
         this.modLifecycleManager.OnPostInit(event);
+        this.mcaAddons.Register();
     }
 }
