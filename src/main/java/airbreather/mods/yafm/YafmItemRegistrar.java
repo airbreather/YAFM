@@ -60,8 +60,8 @@ final class YafmItemRegistrar extends ItemRegistrarBase
         if (definition.equals(YafmConstants.CarrotSoupItemDefinition))
         {
             // maxServings: 3
-            // hungerRestored: 2 (same as one carrots)
-            // saturationModifier: 0.8 (same as cooked beef)
+            // hungerRestored: 4 (same as a carrot)
+            // saturationModifier: 0.6 (same as a carrot)
             // shouldWolvesEat: false (same as mushroom stew)
             // container: bowl (same as mushroom stew)
             return CreateFoodItemInContainer(3, 4, 0.6f, false, Items.bowl);
