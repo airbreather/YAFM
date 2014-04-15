@@ -10,6 +10,8 @@ import cpw.mods.fml.common.registry.GameData;
 
 import airbreather.mods.airbreathercore.item.ItemDefinition;
 import airbreather.mods.airbreathercore.mod.IModule;
+import airbreather.mods.airbreathercore.recipe.Recipe;
+import airbreather.mods.airbreathercore.recipe.SmeltingRecipe;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -55,18 +57,21 @@ final class MCAAddons
         {
             LogMCACookingEntries(choreRegistryClass, cookableFoodClass, "before");
 
-            this.RegisterMCACookableFood(cookableFoodClass,
-                                         choreRegistryClass,
-                                         YafmConstants.RawMuttonItemDefinition,
-                                         YafmConstants.CookedMuttonItemDefinition);
-            this.RegisterMCACookableFood(cookableFoodClass,
-                                         choreRegistryClass,
-                                         YafmConstants.RawSquidItemDefinition,
-                                         YafmConstants.CookedSquidItemDefinition);
-            this.RegisterMCACookableFood(cookableFoodClass,
-                                         choreRegistryClass,
-                                         YafmConstants.EggItemDefinition,
-                                         YafmConstants.FriedEggItemDefinition);
+            // It's safe to assume that all smelting recipes added by YAFM are cooking recipes.
+            for (Recipe recipe : this.module.GetCustomConfiguration().GetRecipeConfiguration().GetRecipes())
+            {
+                if (!(recipe instanceof SmeltingRecipe))
+                {
+                    continue;
+                }
+
+                SmeltingRecipe smeltingRecipe = (SmeltingRecipe)recipe;
+
+                ItemDefinition input = smeltingRecipe.GetInput();
+                ItemDefinition output = smeltingRecipe.GetResult().GetItemDefinition();
+
+                this.RegisterMCACookableFood(cookableFoodClass, choreRegistryClass, input, output);
+            }
 
             LogMCACookingEntries(choreRegistryClass, cookableFoodClass, "after ");
         }
