@@ -8,26 +8,26 @@ buildscript
 
         maven
         {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            name = 'forge'
+            url = 'http://files.minecraftforge.net/maven'
         }
 
         maven
         {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+            name = 'sonatype'
+            url = 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
     }
     dependencies
     {
-        classpath "net.minecraftforge.gradle:ForgeGradle:1.1-SNAPSHOT"
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
 }
 
-apply plugin: "forge"
+apply plugin: 'forge'
 
 // define the properties file
-ext.configFile = file "build.properties"
+ext.configFile = file 'build.properties'
 
 configFile.withReader
 {
@@ -37,11 +37,11 @@ configFile.withReader
     project.ext.config = new ConfigSlurper().parse prop
 }
 
-archivesBaseName = "yafm"
+archivesBaseName = 'yafm'
 version = config.mod_version
 
-minecraft.version = config.minecraft_version + "-" + config.forge_version // grab latest forge
-minecraft.assetDir = "run/assets"
+minecraft.version = config.minecraft_version + '-' + config.forge_version // grab latest forge
+minecraft.runDir = 'eclipse'
 
 processResources
 {
@@ -64,3 +64,7 @@ processResources
         exclude '**/*.properties'
     }
 }
+
+// Exclude the core from the package.
+// I should start keeping these separate, because updates can screw with things.
+jar.exclude '**/airbreathercore/**'
