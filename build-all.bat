@@ -1,3 +1,3 @@
 @echo off
-call gradle -b abc.gradle
 call gradle
+call gradle -b abc.gradle
