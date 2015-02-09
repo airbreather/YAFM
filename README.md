@@ -3,12 +3,12 @@ Yet Another Food Mod for Minecraft.
 
 Adds some more food to the game.  Yeah yeah, it's been done before, just not by me.
 
-Tested with Minecraft Forge version 10.12.1.1060.
+Tested with Minecraft Forge version 11.14.0.1299.
 
 ## Compiling
 I don't like Eclipse, so here's a step-by-step for how to build this by hand.
 
-Dependencies: JDK, JRE, Gradle (tested with 1.10).
+Dependencies: JDK, JRE, Gradle (tested with 2.21).
 
 ### Once
 1. Set the GRADLE_HOME environment variable to wherever you installed Gradle (the folder that contains bin, init.d, lib, etc.).
@@ -16,5 +16,5 @@ Dependencies: JDK, JRE, Gradle (tested with 1.10).
 
 ### Every time
 1. Navigate to the YAFM source tree.
-2. Run "gradle".
-3. The result will be in the "build\libs".
+2. Run "gradle", then "gradle -b abc.gradle" (or the "build-all.bat" script).
+3. The result files will be in the "build\libs".
