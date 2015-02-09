@@ -33,9 +33,9 @@ public final class ItemFoodInContainer extends ItemFood
     // Called when the item is eaten.
     // Return value indicates the ItemStack that will replace this one.
     @Override
-    public ItemStack onEaten(ItemStack itemStack, World world, EntityPlayer player)
+    public ItemStack onItemUseFinish(ItemStack itemStack, World world, EntityPlayer player)
     {
-        super.onEaten(itemStack, world, player);
+        itemStack = super.onItemUseFinish(itemStack, world, player);
 
         // the base version decrements -- we don't want to do that.
         ++itemStack.stackSize;

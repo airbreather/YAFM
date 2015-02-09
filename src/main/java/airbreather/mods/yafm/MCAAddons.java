@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.item.Item;
-import cpw.mods.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameData;
 
 import airbreather.mods.airbreathercore.item.ItemDefinition;
 import airbreather.mods.airbreathercore.mod.IModule;
@@ -130,9 +130,9 @@ final class MCAAddons
                 Item rawFoodItem = (Item)getRawFoodMethod.invoke(cookingEntry);
                 Item cookedFoodItem = (Item)getCookedFoodMethod.invoke(cookingEntry);
                 String cookingEntryString = "[" + 
-                                            GameData.itemRegistry.getNameForObject(rawFoodItem) +
+                                            GameData.getItemRegistry().getNameForObject(rawFoodItem) +
                                             " --> " + 
-                                            GameData.itemRegistry.getNameForObject(cookedFoodItem) +
+                                            GameData.getItemRegistry().getNameForObject(cookedFoodItem) +
                                             "]";
                 cookingEntryStrings.add(cookingEntryString);
             }

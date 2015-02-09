@@ -104,12 +104,15 @@ final class YafmConfigurationAdapter extends CustomConfigurationBase
 
     private static boolean ShouldEnableRawMuttonDrops(Configuration forgeConfiguration)
     {
-        String enableRawMuttonDropsPropertyName = "enableRawMuttonDrops";
-        boolean enableRawMuttonDropsDefault = true;
-        String enableRawMuttonDropsComment = "Allow sheep to drop raw mutton?  true/false (true is the default)";
+        // 1.8 added raw mutton drops to vanilla, so don't drop our own anymore.
+        return false;
 
-        Property enableRawMuttonDropsProperty = forgeConfiguration.get(Configuration.CATEGORY_GENERAL, enableRawMuttonDropsPropertyName, enableRawMuttonDropsDefault, enableRawMuttonDropsComment);
-        return enableRawMuttonDropsProperty.getBoolean(enableRawMuttonDropsDefault);
+        ////String enableRawMuttonDropsPropertyName = "enableRawMuttonDrops";
+        ////boolean enableRawMuttonDropsDefault = true;
+        ////String enableRawMuttonDropsComment = "Allow sheep to drop raw mutton?  true/false (true is the default)";
+        ////
+        ////Property enableRawMuttonDropsProperty = forgeConfiguration.get(Configuration.CATEGORY_GENERAL, enableRawMuttonDropsPropertyName, enableRawMuttonDropsDefault, enableRawMuttonDropsComment);
+        ////return enableRawMuttonDropsProperty.getBoolean(enableRawMuttonDropsDefault);
     }
 
     private static boolean ShouldEnableRawSquidDrops(Configuration forgeConfiguration)

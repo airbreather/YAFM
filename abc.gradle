@@ -27,7 +27,7 @@ buildscript
 apply plugin: 'forge'
 
 // define the properties file
-ext.configFile = file 'build.properties'
+ext.configFile = file 'abc.properties'
 
 configFile.withReader
 {
@@ -37,34 +37,16 @@ configFile.withReader
     project.ext.config = new ConfigSlurper().parse prop
 }
 
-archivesBaseName = 'yafm'
+archivesBaseName = 'airbreathercore'
 version = config.mod_version
 
 minecraft.version = config.minecraft_version + '-' + config.forge_version
 minecraft.runDir = 'eclipse'
 
-processResources
-{
-    // replace stuff in the files we want.
-    from(sourceSets.main.resources.srcDirs)
-    {
-        include '**/*.info'
-        include '**/*.properties'
-
-        // replaces
-        expand(['mod_version': config.mod_version,
-                'minecraft_version': config.minecraft_version,
-                'forge_version': config.forge_version])
-    }
-
-    // copy everything else (what we didn't do before)
-    from(sourceSets.main.resources.srcDirs)
-    {
-        exclude '**/*.info'
-        exclude '**/*.properties'
-    }
-}
-
-// Exclude the core from the package.
-// I should start keeping these separate, because updates can screw with things.
-jar.exclude 'airbreather/mods/airbreathercore'
+// Exclude YAFM-specific stuff so the same JAR can be used for other mods.
+jar.exclude 'airbreather/mods/yafm'
+jar.exclude 'assets'
+jar.exclude 'LICENSE'
+jar.exclude 'LICENSE-Icons'
+jar.exclude 'mcmod.info'
+jar.exclude 'version.properties'
