@@ -4,27 +4,21 @@ buildscript
 {
     repositories
     {
-        mavenCentral()
+        jcenter()
 
         maven
         {
             name = 'forge'
             url = 'http://files.minecraftforge.net/maven'
         }
-
-        maven
-        {
-            name = 'sonatype'
-            url = 'https://oss.sonatype.org/content/repositories/snapshots/'
-        }
     }
     dependencies
     {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
     }
 }
 
-apply plugin: 'forge'
+apply plugin: 'net.minecraftforge.gradle.forge'
 
 // define the properties file
 ext.configFile = file 'build.properties'
@@ -39,9 +33,13 @@ configFile.withReader
 
 archivesBaseName = 'yafm'
 version = config.mod_version
+group = 'airbreather.mods.yafm'
 
-minecraft.version = config.minecraft_version + '-' + config.forge_version
+minecraft.version = config.minecraft_version + '-' + config.forge_version + '-' + config.minecraft_version
 minecraft.runDir = 'eclipse'
+
+// TODO: eventually, the defaults will be fine.  until then...
+minecraft.mappings = 'snapshot_20151122'
 
 processResources
 {
