@@ -20,7 +20,6 @@ buildscript
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 group = 'airbreather.mods.airbreathercore'
-minecraft.mappings = 'snapshot_20151122'
 
 // define the properties file
 ext.configFile = file 'abc.properties'
@@ -36,11 +35,10 @@ configFile.withReader
 archivesBaseName = 'airbreathercore'
 version = config.mod_version
 
-minecraft.version = config.minecraft_version + '-' + config.forge_version + '-' + config.minecraft_version
+minecraft.version = config.minecraft_version + '-' + config.forge_version
 minecraft.runDir = 'eclipse'
-
-// TODO: eventually, the defaults will be fine.  until then...
-minecraft.mappings = 'snapshot_20151122'
+minecraft.mappings = 'stable_20'
+minecraft.makeObfSourceJar = false
 
 // Exclude YAFM-specific stuff so the same JAR can be used for other mods.
 jar.exclude 'airbreather/mods/yafm'

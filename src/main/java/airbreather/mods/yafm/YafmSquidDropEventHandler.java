@@ -34,7 +34,7 @@ final class YafmSquidDropEventHandler extends LivingDropsEventHandlerBase
         Entity entity = checkNotNull(event.entity, "event.entity");
 
         if (!(entity instanceof EntitySquid) ||
-            !entity.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot") ||
+            !entity.worldObj.getGameRules().getBoolean("doMobLoot") ||
             ((EntitySquid)entity).isChild())
         {
             // the mob isn't a squid, or

@@ -35,11 +35,10 @@ archivesBaseName = 'yafm'
 version = config.mod_version
 group = 'airbreather.mods.yafm'
 
-minecraft.version = config.minecraft_version + '-' + config.forge_version + '-' + config.minecraft_version
+minecraft.version = config.minecraft_version + '-' + config.forge_version
 minecraft.runDir = 'eclipse'
-
-// TODO: eventually, the defaults will be fine.  until then...
-minecraft.mappings = 'snapshot_20151122'
+minecraft.mappings = 'stable_20'
+minecraft.makeObfSourceJar = false
 
 processResources
 {

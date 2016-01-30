@@ -34,7 +34,7 @@ final class YafmSheepDropEventHandler extends LivingDropsEventHandlerBase
         Entity entity = checkNotNull(event.entity, "event.entity");
 
         if (!(entity instanceof EntitySheep) ||
-            !entity.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot") ||
+            !entity.worldObj.getGameRules().getBoolean("doMobLoot") ||
             ((EntitySheep)entity).isChild())
         {
             // the mob isn't a sheep, or

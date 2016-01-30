@@ -41,7 +41,7 @@ final class MCAAddons
             cookableFoodClass = Class.forName("mca.api.chores.CookableFood");
             choreRegistryClass = Class.forName("mca.api.registries.ChoreRegistry");
         }
-        catch (final Throwable _)
+        catch (final Throwable thingToIgnore)
         {
             // Don't bother logging anything.
         }
@@ -139,7 +139,7 @@ final class MCAAddons
 
             logger.debug(String.format("MCA cookable food entries %s: %s", stage, cookingEntryStrings));
         }
-        catch (final Throwable _)
+        catch (final Throwable thingToIgnore)
         {
             // I have a thing against letting "display a helpful message" code
             // spit out exceptions.  So in that case, screw it.
