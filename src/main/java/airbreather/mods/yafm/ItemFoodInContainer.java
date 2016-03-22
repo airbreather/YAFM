@@ -1,6 +1,6 @@
 package airbreather.mods.yafm;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -33,7 +33,7 @@ public final class ItemFoodInContainer extends ItemFood
     // Called when the item is eaten.
     // Return value indicates the ItemStack that will replace this one.
     @Override
-    public ItemStack onItemUseFinish(ItemStack itemStack, World world, EntityPlayer player)
+    public ItemStack onItemUseFinish(ItemStack itemStack, World world, EntityLivingBase player)
     {
         itemStack = super.onItemUseFinish(itemStack, world, player);
 
