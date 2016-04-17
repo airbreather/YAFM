@@ -31,7 +31,7 @@ final class YafmSheepDropEventHandler extends LivingDropsEventHandlerBase
     protected Optional<Item> GetItemToDrop(LivingDropsEvent event)
     {
         checkNotNull(event, "event");
-        Entity entity = checkNotNull(event.entity, "event.entity");
+        Entity entity = checkNotNull(event.getEntity(), "event.getEntity()");
 
         if (!(entity instanceof EntitySheep) ||
             !entity.worldObj.getGameRules().getBoolean("doMobLoot") ||

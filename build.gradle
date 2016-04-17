@@ -37,7 +37,7 @@ group = 'airbreather.mods.yafm'
 
 minecraft.version = config.minecraft_version + '-' + config.forge_version + '-' + config.minecraft_version
 minecraft.runDir = 'eclipse'
-minecraft.mappings = 'snapshot_20160321'
+minecraft.mappings = 'snapshot_20160312'
 minecraft.makeObfSourceJar = false
 
 processResources
