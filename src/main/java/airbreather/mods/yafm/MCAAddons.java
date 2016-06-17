@@ -130,9 +130,9 @@ final class MCAAddons
                 Item rawFoodItem = (Item)getRawFoodMethod.invoke(cookingEntry);
                 Item cookedFoodItem = (Item)getCookedFoodMethod.invoke(cookingEntry);
                 String cookingEntryString = "[" + 
-                                            GameData.getItemRegistry().getNameForObject(rawFoodItem) +
+                                            Item.REGISTRY.getNameForObject(rawFoodItem) +
                                             " --> " + 
-                                            GameData.getItemRegistry().getNameForObject(cookedFoodItem) +
+                                            Item.REGISTRY.getNameForObject(cookedFoodItem) +
                                             "]";
                 cookingEntryStrings.add(cookingEntryString);
             }

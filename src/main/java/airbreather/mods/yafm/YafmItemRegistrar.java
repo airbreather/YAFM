@@ -63,8 +63,8 @@ final class YafmItemRegistrar extends ItemRegistrarBase
             // hungerRestored: 4 (same as a carrot)
             // saturationModifier: 0.6 (same as a carrot)
             // shouldWolvesEat: false (same as mushroom stew)
-            // container: bowl (same as mushroom stew)
-            return CreateFoodItemInContainer(3, 4, 0.6f, false, Items.bowl);
+            // container: BOWL (same as mushroom stew)
+            return CreateFoodItemInContainer(3, 4, 0.6f, false, Items.BOWL);
         }
 
         return super.CreateItemCore(definition);
@@ -77,7 +77,7 @@ final class YafmItemRegistrar extends ItemRegistrarBase
     {
         Item newFoodItem = new ItemFood(hungerRestored, saturationModifier, shouldWolvesEat);
         newFoodItem.setMaxStackSize(maxStackSize)
-                   .setCreativeTab(CreativeTabs.tabFood);
+                   .setCreativeTab(CreativeTabs.FOOD);
 
         return newFoodItem;
     }
@@ -89,7 +89,7 @@ final class YafmItemRegistrar extends ItemRegistrarBase
                                                   Item emptyContainer)
     {
         Item newFoodItem = new ItemFoodInContainer(hungerRestored, saturationModifier, shouldWolvesEat, maxServings, emptyContainer);
-        newFoodItem.setCreativeTab(CreativeTabs.tabFood);
+        newFoodItem.setCreativeTab(CreativeTabs.FOOD);
 
         return newFoodItem;
     }
