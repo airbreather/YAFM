@@ -38,7 +38,7 @@ public final class ItemFoodInContainer extends ItemFood
         itemStack = super.onItemUseFinish(itemStack, world, player);
 
         // the base version decrements -- we don't want to do that.
-        ++itemStack.stackSize;
+        itemStack.func_190917_f(1);
 
         if (itemStack.attemptDamageItem(1, null) ||
             itemStack.getItemDamage() == itemStack.getMaxDamage())
