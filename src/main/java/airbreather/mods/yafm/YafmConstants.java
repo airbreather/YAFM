@@ -6,7 +6,7 @@ import airbreather.mods.airbreathercore.item.ItemDefinition;
 final class YafmConstants
 {
     // ID of the mod.
-    public static final String ModID = "YAFM";
+    public static final String ModID = "yafm";
 
     // ID of the base game.
     public static final String BaseGameModID = "minecraft";
